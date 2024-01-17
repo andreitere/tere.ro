@@ -1,0 +1,122 @@
+---
+title: Gitlab CI Telegram Notifications
+draft: false
+external: false
+description: Better notifications for your pipeline with Telegram Bots
+category:
+  - Tinkering
+tags:
+  - gitlab
+  - ci
+  - telegram
+
+date: 2023-02-12
+---
+
+I keep most of my personal projects on https://gitlab.com. While I love the ci-cd approach and how this can be defined, I hate that I cannot get an overall view of all the pipleines and their status.
+
+It happens quite often that I trigger deployments on multiple projects and I need to check the status for each. And the only way to do this is by navigating to each individual project and go to CI/CD -> Pipelines.
+
+# Telegram Bot to the rescue
+
+As an active Telegram user, simplifying the process with a bot seemed natural. I'm looking for something simple: a conversion with the bot where "it"
+can message me when a pipeline progesses.
+
+## Creating the bot.
+
+You can follow [this tutorial](https://learn.microsoft.com/en-us/azure/bot-service/bot-service-channel-connect-telegram?view=azure-bot-service-4.0#create-a-new-telegram-bot-with-botfather) to quickly get a bot up and running and get your bot _access token_. You will need this when calling the needed APIs
+
+With [@BotFather](https://telegram.me/botfather) you can also tweak other settings of your bot. You might want to change privacy regarding groups and so on, depending on how you plan to use it
+
+## Setting up the conversion
+
+For the bot to be able to send messages you will need a chat id.
+
+1. Open a conversion with your newly created bot and send the _/start_ command.
+2. Next we need to call the _getUpdates_ endpoint of the bot to get the messages send to your bot. This will help us finding the chat id.
+
+Use your prefferred rest client (i'm using Insomnia) and execut a POST Request to
+
+```json
+POST https://api.telegram.org/bot$ACCESS_TOKEN/getUpdates
+```
+
+Make sure you replace $ACCESS_TOKEN with your own.
+
+Response should look structuraly similar.
+
+```json
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 785513355,
+      "message": {
+        "message_id": 19,
+        "from": {
+          "id": 213456691,
+          "is_bot": false,
+          "first_name": "**redacted**",
+          "last_name": "**redacted**",
+          "username": "**redacted**",
+          "language_code": "en"
+        },
+        "chat": {
+          "id": 213456691,
+          "first_name": "**redacted**",
+          "last_name": "Tere",
+          "username": "**redacted**",
+          "type": "private"
+        },
+        "date": 1676219181,
+        "text": "/start",
+        "entities": [
+          {
+            "offset": 0,
+            "length": 6,
+            "type": "bot_command"
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+3. Note down the value for `message.from.id`. This is the `chat id` were gonna use for sending updates
+
+## Sending messages with using the REST API
+
+To send a message to a chat you will need to call the _sendMessage_ endpoint.
+
+```json
+POST https://api.telegram.org/bot$ACCESS_TOKEN/sendMessage
+{
+	"chat_id": "213456691",
+	"text": "hey from bot",
+	"disable_notification": true
+}
+```
+
+## Integrating into .gitlab-ci.yml
+
+Now it's up to you on which stages you want to be notified one.
+
+In the stage's script you just need to execut the REST call with whatever text you want.
+
+For this I'm using curl and it looks something like this:
+
+```yaml
+build:
+  script:
+    - |
+      curl --request POST --url https://api.telegram.org/bot$ACCESS_TOKEN/sendMessage --header 'Content-Type: application/json' --data '{"chat_id": "213456691","text": "'"Building  [${CI_PROJECT_NAME}] for environment: [${TARGET}] from branch: [${CI_COMMIT_BRANCH}] 🚀"'","disable_notification": true}'
+```
+
+> Make sure you replace the $ACCESS_TOKEN. Also chat_id value. You should even add them to your CI/CD Variables
+
+And that's it. Now you will have better view over your jobs.
+
+That's it 😌. Thank you
+
+🙏🏼

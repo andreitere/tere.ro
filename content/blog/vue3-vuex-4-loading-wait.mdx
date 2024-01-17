@@ -1,0 +1,89 @@
+---
+title: Vuex4 Module to track your loading flags
+draft: false
+external: false
+description: Simple store module to keep your loading flags for async actions
+category:
+  - Vue
+tags:
+  - vue
+  - vuex
+  - vite
+  - module
+
+date: 2021-08-05
+---
+
+> ##### Repository
+> [https://github.com/andreitere/vue3-wait-example](https://github.com/andreitere/vue3-wait-example)
+
+
+Whenever you build a frontend application which calls backend apis and you also need to display the loading state you end up with multiple flags
+in your code to manage this.
+
+For Vue there is already an **awesome** module ( [vue-wait](https://github.com/f/vue-wait) ) which makes this easier but I wanted something quite simple with no additional dependency.
+
+If it's not clear this is highly insipired by *vue-wait*.
+
+To keep it straight forward:
+
+wait module:
+```js
+export const wait = {
+    namespaced: true,
+    state() {
+        return {
+            queue: []
+        }
+    },
+    mutations: {
+        start(state, task) {
+            state.queue.push(task)
+        },
+        end(state, task) {
+            state.queue = state.queue.filter(item => item !== task);
+        }
+    }
+}
+```
+
+how it mutation can be called from other modules:
+
+```js
+ async loadData({commit}) {
+    commit("wait/start", "load_data", { root: true });
+    setTimeout(() => {
+        commit("wait/end", "load_data", { root: true });
+    }, 2000);
+},
+```
+
+
+To get the data in your components:
+
+```js
+...
+const isLoading = computed(() => store.state.wait.queue.includes("load_data"));
+...
+```
+
+
+... or we can have our custom utility function:
+
+```js
+export const useWait = (task) => {
+    const store = useStore();
+    return computed(() => store.state.wait.queue.includes(task));
+};
+```
+
+and use it like this:
+```js
+import {useWait} from './store/wait';
+const isLoading = useWait("load_data");
+```
+
+
+That's it.
+
+Thank you for reading 😄

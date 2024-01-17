@@ -1,0 +1,5 @@
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^tere\.ro$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.tere\.ro$
+RewriteRule ^wishlist$ "https\:\/\/andreiterecoasa\.notion\.site\/b034078169ea4a7686a2b46a3e0d3f38\?v\=e55d6b07233549eeac762a57508ef488\&pvs\=4" [R=301,L]

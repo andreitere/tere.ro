@@ -1,0 +1,180 @@
+---
+title: Firebase Web Notifications - How to set it up and receive notifications
+draft: false
+external: false
+description: How to register and receive notifications with Firebase. Repository and code examples. With ViteJS
+category:
+  - Vue
+tags:
+  - firebase
+  - fcm
+  - notifications
+  - web
+  - javascript
+  - vitejs
+
+date: 2023-02-05
+---
+
+> ##### TLDR; Here is the repository with the code
+>
+> [https://github.com/andreitere/firebase-web-notifications](https://github.com/andreitere/firebase-web-notifications)
+
+# Introduction
+
+What initially proved to be simple from a setup perspective for local development, generating the prod bundle involved some challenges.
+The basic steps are straightforward, but productionizing the setup a bit was tricky.
+
+## Setting up the firebase project
+
+1. [Create your firebase project](https://firebase.google.com/docs/web/setup#create-project)
+2. [Register your app](https://firebase.google.com/docs/web/setup#register-app)
+
+At this point you will have the firebaseConfig object with all the require credentials.
+
+As I am using vite and you will probably also want to, i'm filling an **.env** file with all the settings so that they will be filled properly on build.
+
+```
+VITE_APP_FIREBASE_API_KEY="apiKey"
+VITE_APP_PROJECT_ID="projectId"
+VITE_APP_FIREBASE_MESSAGING_SENDER_ID="messagingSenderId"
+VITE_APP_FIREBASE_APP_ID="appId"
+VITE_APP_FIREBASE_VAPKEY="VAPKEY"
+VITE_APP_FIREBASE_MEASUREMENT_ID="measurementId"
+VITE_APP_FIREBASE_STORAGE_BUCKET="storageBucket"
+VITE_APP_FIREABASE_DATABASE_URL="databaseURL"
+VITE_APP_FIREABASE_AUTH_DOMAIN="authDomain"
+```
+
+These all will be replaced in `firebase.config.js`
+
+```js
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_APP_FIREABASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_APP_FIREABASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_APP_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID
+};
+export default firebaseConfig;
+```
+
+The *VAPKEY* is not included in the firebaseConfig object. You need to get it by generating `Web Push Certificates` pair for the Web Configuration under your firebase project -> Project settings -> Cloud Messaging
+
+## Using the repository
+
+After you filled the `.env` file as per the template you can install the dependencies in the project and run it
+
+1. `pnpm install`
+2. `pnpm run dev`
+
+Clicking the *Subscribe* button will print the token needed when sending notifications
+
+## The challenges
+
+### Firebase service worker
+
+An important piece of the whole setup is the firebase-messaging-sw.js file. The service worker used by firebase.
+
+Normally you would just put into the public folder with all the credentials in it and then it will be loaded automatically. But because I like to struggle, i did it differently.
+
+I wanted all the credentials to be pulled from the `.env` file. With vite you grav them with `import.meta.env.VITE_APP_VAR`.
+
+Issue with having the file in the public folder is that you will be limited to what you can import or use. So you need to do it differently
+
+_Solution_: Manually registering the service worker with `{ type: "module" }`
+
+This way you can keep it in your root/src folder and get it compiled. This way it get's properly processed by vite and everything is setup correctly.
+
+```js
+// firebase-messaging-sw.js
+import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging/sw";
+import { onBackgroundMessage } from "firebase/messaging/sw";
+
+import config from "./firebase.config.js";
+const app = initializeApp(config);
+const messaging = getMessaging();
+
+onBackgroundMessage(messaging, (payload) => {
+  console.log(payload);
+  console.log(
+    "[firebase-messaging-sw.js] Received background message ",
+    payload
+  );
+  // Customize notification here
+  const notificationTitle = "Background Message Title";
+  const notificationOptions = {
+    body: "Background Message body.",
+    icon: "/vite.svg"
+  };
+
+  self.registration.showNotification(notificationTitle, notificationOptions);
+});
+```
+
+To register the service worker you just need to do this
+
+```js
+const registration = await navigator.serviceWorker.register(
+  "./firebase-messaging-sw.js",
+  {
+    type: "module"
+  }
+);
+```
+
+Make sure you keep track of the *registration* as this needs to be used when calling the *getToken* method. I'm using a class for all the firebase interaction [notifications.js](https://github.com/andreitere/firebase-web-notifications/blob/main/notifications.js)
+
+### Building for production
+
+The service worker we currently have in the root folder `firebase-messaging-sw.js` is not imported anywhere so vite will ignore it on build.
+
+What we need to do it a custom build config for it so that it will get outputed in the dist folder.
+
+Quite straightforward I would say. In vite.config.js I'm using a custom config based on the VITE_CONFIG so that first i'm building the `firebase-messaging-sw.js`
+
+```js
+import { defineConfig } from "vite";
+
+const configs = {
+  sw: {
+    build: {
+      outdir: "./dist",
+      lib: {
+        entry: resolve("./firebase-messaging-sw.js"),
+        fileName: "firebase-messaging-sw",
+        formats: ["es"]
+      },
+      emptyOutDir: false
+    }
+  },
+  main: {}
+};
+
+const config = configs[process.env.VITE_CONFIG];
+export default defineConfig({
+  ...(config || {})
+});
+```
+
+and the build commands from `package.json`
+
+```json
+{
+  "build": "VITE_CONFIG=main vite build && VITE_CONFIG=sw vite build",
+  "build:sw": "VITE_CONFIG=sw vite build",
+  "build:site": "VITE_CONFIG=main vite build"
+}
+```
+
+in the end, running `pnpm run build` will output all the required files.
+
+### Sending the notification
+
+If when navigating to the main page won't display the token click on subscribe. You will be requested for Notifications permissions. Pay attention in case the browser is dening them by default. You will have to reset that.
+
+Grab the token, go to firebase console -> your project -> Messaging and compose a notification. Click on `send test message` and use the token you got after subscribing.
