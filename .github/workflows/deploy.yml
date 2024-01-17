@@ -11,7 +11,7 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      - name: Use Node.js 14
+      - name: Pull NodeJS 18
         uses: actions/setup-node@v2
         with:
           node-version: '18'
@@ -21,11 +21,16 @@ jobs:
           npm install
           npm run generate
 
+      - name: 📦 Add assets
+        run: |
+          cp ./.deploy/.htaccess .
+          cp ./.deploy/Andrei_Terecoasa_Resume.pdf .
+
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
           server: tere.ro
-          username: ${{ secrets.user }}
-          password: ${{ secrets.passwords }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
           server-dir: .home/rech2778/public_html/s/tere
           local-dir: ./.output/dist
