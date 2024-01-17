@@ -25,7 +25,7 @@ jobs:
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          server: ftp.example.com
+          server: echoradio.eu
           username: ${{ secrets.usr }}
           password: ${{ secrets.pw }}
           server-dir: .home/rech2778/public_html/s/tere
