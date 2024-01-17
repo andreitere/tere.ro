@@ -19,14 +19,13 @@ jobs:
       - name: 🔨 Build Project
         run: |
           npm install
-          npm run build
           npm run generate
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
         with:
-          server: echoradio.eu
-          username: ${{ secrets.usr }}
-          password: ${{ secrets.pw }}
+          server: tere.ro
+          username: ${{ secrets.user }}
+          password: ${{ secrets.passwords }}
           server-dir: .home/rech2778/public_html/s/tere
           local-dir: ./.output/dist
