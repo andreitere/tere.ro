@@ -32,5 +32,5 @@ jobs:
           server: tere.ro
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          server-dir: /home/rech2778/public_html/s/tere/tere.ro/
+          server-dir: tere.ro/
           local-dir: ./.output/public/
