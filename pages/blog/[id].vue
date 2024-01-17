@@ -30,7 +30,7 @@ defineOgImageComponent('BlogImage', {
       <h1 class="mb-4 text-4xl font-bold">{{ data.title }}</h1>
       <p class="text-muted-foreground text-sm">{{ data.description }}</p>
       <div class="flex text-xs text-muted-foreground">
-        <span class="italic">Published on: {{ formatDate(data.date) }}</span>
+        <span class="italic">Published on: {{ $dayjs(data.date).format("DD-MM-YYYY") }}</span>
       </div>
     </header>
     <div class="prose">

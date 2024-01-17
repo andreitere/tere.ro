@@ -1,8 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {enabled: true},
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/content', '@nuxtjs/google-fonts', 'unplugin-icons/nuxt', 'nuxt-og-image'],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/content', '@nuxtjs/google-fonts', 'unplugin-icons/nuxt', 'nuxt-og-image', 'dayjs-nuxt'],
   css: ['~/assets/css/main.scss'],
+  dayjs: {
+    plugins: ['calendar'],
+    defaultLocale: 'en',
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -12,7 +16,7 @@ export default defineNuxtConfig({
   site: {
     url: "https://tere.ro"
   },
-   ogImage: {
+  ogImage: {
     fonts: [
       // will load the Noto Sans font from Google fonts
       'Fira+Code:600',
@@ -39,6 +43,6 @@ export default defineNuxtConfig({
     componentDir: './components/ui'
   },
   googleFonts: {
-    families: ['Fira Code', "Roboto Slab" ,"Space Mono"]
+    families: ['Fira Code', "Roboto Slab", "Space Mono"]
   }
 })
