@@ -23,8 +23,8 @@ jobs:
 
       - name: 📦 Add assets
         run: |
-          cp ./.deploy/.htaccess ./.output/dist
-          cp ./.deploy/Andrei_Terecoasa_Resume.pdf ./.output/dist
+          cp ./.deploy/.htaccess ./.output/public
+          cp ./.deploy/Andrei_Terecoasa_Resume.pdf ./.output/public
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
@@ -33,4 +33,4 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           server-dir: /home/rech2778/public_html/s/tere/tere.ro/
-          local-dir: ./.output/dist/
+          local-dir: ./.output/public/
