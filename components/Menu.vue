@@ -11,7 +11,7 @@ import MaterialSymbolsHomeRounded from "~icons/material-symbols/home-rounded"
     </div>
     <div class="flex items-center">
       <div>
-        <NuxtLink to="/blog" class="text-sm font-semibold leading-none">Tips & Tricks</NuxtLink>
+        <NuxtLink to="/blog" class="text-sm font-semibold leading-none">Blog</NuxtLink>
       </div>
     </div>
     <div class="flex items-center">
