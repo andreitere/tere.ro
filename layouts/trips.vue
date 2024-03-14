@@ -4,7 +4,7 @@
   <div
     class="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-16"
   >
-    <div class="mx-auto max-w-2xl space-y-6">
+    <div class="mx-auto max-w-2xl space-y-3">
       <slot />
     </div>
   </div>

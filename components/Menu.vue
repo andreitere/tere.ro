@@ -47,8 +47,10 @@ import MaterialSymbolsHomeRounded from "~icons/material-symbols/home-rounded"
   </div>
 </template>
 
-<style>
+<style lang="scss">
 .router-link-exact-active {
-  @apply font-bold text-black;
+  @apply font-bold text-foreground;
+  
+
 }
 </style>
