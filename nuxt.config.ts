@@ -10,8 +10,8 @@ export default defineNuxtConfig({
     "nuxt-og-image",
     "dayjs-nuxt",
     "nuxt-gtag",
-    "nuxt-umami",
   ],
+  extends: ["nuxt-umami"],
   css: ["~/assets/css/main.scss"],
   dayjs: {
     plugins: ["calendar"],
