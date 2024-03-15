@@ -27,6 +27,14 @@ defineOgImageComponent("BlogImage", {
   theme: "#ff0000",
   colorMode: "dark",
 });
+
+useSeoMeta({
+  title: data.value?.title,
+  ogTitle: data.value?.title,
+  description:  data.value?.description,
+  ogDescription: data.value?.description 
+})
+
 </script>
 
 <template>
