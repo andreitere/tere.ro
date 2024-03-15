@@ -62,7 +62,8 @@ export default defineNuxtConfig({
     umami: {
       host: "https://analytics.cloudcrafts.club",
       id: "b9f4ffc4-3bcb-44b5-a2f6-9672d68a4761",
-      customEndpoint: "/api/send"
+      customEndpoint: "/api/send",
+      version: 2
     },
   },
 });
