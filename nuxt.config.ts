@@ -46,6 +46,6 @@ export default defineNuxtConfig({
     families: ['Fira Code', "Roboto Slab", "Space Mono"]
   },
   gtag: {
-    id: 'G-KBKD6E08Yg'
+    id: 'G-KBKD6E08Y4'
   }
 })
