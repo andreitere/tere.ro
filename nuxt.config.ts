@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: {enabled: true},
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/content', '@nuxtjs/google-fonts', 'unplugin-icons/nuxt', 'nuxt-og-image', 'dayjs-nuxt'],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/content', '@nuxtjs/google-fonts', 'unplugin-icons/nuxt', 'nuxt-og-image', 'dayjs-nuxt', "@nuxtjs/google-analytics"],
   css: ['~/assets/css/main.scss'],
   dayjs: {
     plugins: ['calendar'],
@@ -44,5 +44,8 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: ['Fira Code', "Roboto Slab", "Space Mono"]
+  },
+  googleAnalytics: {
+    id: 'G-KBKD6E08Y4'
   }
 })
