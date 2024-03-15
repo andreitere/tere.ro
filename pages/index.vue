@@ -15,6 +15,15 @@ const getDurationLine = (workItem) => {
   }
   return `${startYear}-${endYear}`;
 };
+
+useSeoMeta({
+  title: "Andrei Terecoasa - Software Engineer",
+  ogTitle: "Andrei Terecoasa - Software Engineer",
+  description:
+    "With over seven years of experience in production-ready environments, I have honed my skills in building robust, scalable, and efficient applications.\n\nIn recent years, I have taken on new challenges in the fields of Data Science, Machine Learning, and Content Intelligence.",
+  ogDescription:
+    "With over seven years of experience in production-ready environments, I have honed my skills in building robust, scalable, and efficient applications.\n\nIn recent years, I have taken on new challenges in the fields of Data Science, Machine Learning, and Content Intelligence.",
+});
 </script>
 
 <template>
