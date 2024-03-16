@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Giscus from "@giscus/vue";
 definePageMeta({
   alias: "/:category()/:id()",
 });
@@ -31,10 +32,9 @@ defineOgImageComponent("BlogImage", {
 useSeoMeta({
   title: data.value?.title,
   ogTitle: data.value?.title,
-  description:  data.value?.description,
-  ogDescription: data.value?.description 
-})
-
+  description: data.value?.description,
+  ogDescription: data.value?.description,
+});
 </script>
 
 <template>
@@ -56,6 +56,23 @@ useSeoMeta({
     <div class="prose">
       <ContentRenderer :value="data" />
     </div>
+    <ClientOnly>
+    brr
+    <Giscus
+      id="comments"
+      repo="andreitere/tere.ro"
+      repoId="744460176"
+      category="Announcements"
+      categoryId="DIC_kwDOF1L2fM4B-hVS"
+      mapping="specific"
+      reactionsEnabled="1"
+      emitMetadata="0"
+      inputPosition="top"
+      theme="light"
+      lang="en"
+      loading="lazy"
+    />
+    </ClientOnly>
   </div>
 </template>
 
