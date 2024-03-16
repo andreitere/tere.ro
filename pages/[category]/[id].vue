@@ -56,23 +56,21 @@ useSeoMeta({
     <div class="prose">
       <ContentRenderer :value="data" />
     </div>
-    <ClientOnly>
-    brr
+
     <Giscus
       id="comments"
       repo="andreitere/tere.ro"
-      repoId="744460176"
+      repoId="R_kgDOLF-PkA"
       category="Announcements"
-      categoryId="DIC_kwDOF1L2fM4B-hVS"
-      mapping="specific"
+      categoryId="DIC_kwDOLF-PkM4CeBWs"
+      mapping="url"
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="top"
-      theme="light"
+      theme="preferred_color_scheme"
       lang="en"
       loading="lazy"
     />
-    </ClientOnly>
   </div>
 </template>
 
