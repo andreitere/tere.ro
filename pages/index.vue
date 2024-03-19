@@ -2,6 +2,11 @@
 import MaterialSymbolsGlobe from "~icons/material-symbols/globe";
 import ExternalLink from "~icons/mingcute/external-link-line";
 import DotDuotone from "~icons/ph/dot-fill";
+import ArrowUp from "~icons/material-symbols/arrow-warm-up";
+import GithubIcon from "~icons/mdi/github";
+import InstagramIcon from "~icons/uim/instagram";
+import FacebookIcon from "~icons/ic/baseline-facebook";
+import LinkedinIcon from "~icons/ph/linkedin-logo-bold";
 
 const { data: resume } = await useAsyncData("resume", () =>
   queryContent("/resume").findOne()
@@ -49,26 +54,27 @@ useSeoMeta({
         />
       </div>
     </div>
-    <div class="flex [&>*]:h-[24px] [&>*]:cursor-pointer [&>*]:flex gap-3 items-center">
+    <div
+      class="flex [&>*]:h-[24px] [&>*]:cursor-pointer [&>*]:flex gap-3 items-center"
+    >
       <a href="https://github.com/andreitere" target="_blank">
-        <img src="https://api.iconify.design/uim:github.svg?color=%23FFFFFF" />
+        <GithubIcon class="h-6 w-6" />
       </a>
       <a href="https://www.instagram.com/andreiterecoasa/" target="_blank">
-        <img
-          src="https://api.iconify.design/uim:instagram.svg?color=%23FFFFFF"
-        />
+        <InstagramIcon class="h-6 w-6" />
       </a>
       <a href="https://www.facebook.com/andreiterecoasa/" target="_blank">
-        <img
-          src="https://api.iconify.design/uim:facebook-f.svg?color=%23FFFFFF"
-        />
-      </a>
+        <FacebookIcon class="h-6 w-6"
+      /></a>
       <a href="https://www.linkedin.com/in/andrei-terecoasa" target="_blank">
-        <img
-          src="https://api.iconify.design/uim:linkedin-alt.svg?color=%23FFFFFF"
-        />
-      </a>
-      <a href="https://teamcoding.eu/" target="_blank" class="font-bold text-lg">TC</a>
+        <LinkedinIcon class="h-6 w-6"
+      /></a>
+      <a
+        href="https://teamcoding.eu/"
+        target="_blank"
+        class="font-bold text-lg text-foreground h-6 w-6"
+        >TC</a
+      >
     </div>
   </section>
   <Menu />
@@ -81,7 +87,10 @@ useSeoMeta({
     </p>
   </section>
   <section class="section font-mono" id="work">
-    <h2 class="text-xl font-bold">Work Experience</h2>
+    <h2 class="flex justify-between items-center text-xl font-bold">
+      Work Experience
+      <a href="#"><ArrowUp class="text-foreground" /></a>
+    </h2>
     <div v-for="work in resume.work" class="flex space-y-1.5 flex-col">
       <div class="flex justify-between">
         <h3 class="font-semibold hover:underline">
@@ -96,7 +105,10 @@ useSeoMeta({
     </div>
   </section>
   <section class="section font-mono" id="education">
-    <h2 class="text-xl font-bold">Education</h2>
+    <h2 class="flex items-center justify-between text-xl font-bold">
+      Education
+      <a href="#"><ArrowUp class="text-foreground" /></a>
+    </h2>
     <div v-for="ed in resume.education" class="flex space-y-1.5 flex-col">
       <div class="flex justify-between">
         <h3 class="font-semibold text-balance flex-1 text-pretty">
@@ -112,7 +124,10 @@ useSeoMeta({
     </div>
   </section>
   <section class="section font-mono" id="skills">
-    <h2 class="text-xl font-bold">Skills</h2>
+    <h2 class="flex items-center justify-between text-xl font-bold">
+      Skills
+      <a href="#"><ArrowUp class="text-foreground" /></a>
+    </h2>
     <div class="flex flex-wrap font-semibold text-gray-200">
       <div
         v-for="skill in resume.skills"
@@ -123,7 +138,10 @@ useSeoMeta({
     </div>
   </section>
   <section class="section font-mono" id="projects">
-    <h2 class="text-xl font-bold">Projects</h2>
+    <h2 class="flex items-center justify-between text-xl font-bold">
+      Projects
+      <a href="#"><ArrowUp class="text-foreground" /></a>
+    </h2>
     <div
       class="-mx-3 grid grid-cols-1 gap-3 print:grid-cols-2 print:gap-2 md:grid-cols-2"
     >
@@ -159,7 +177,10 @@ useSeoMeta({
     </div>
   </section>
   <section class="section font-mono" id="references">
-    <h2 class="text-xl font-bold">References</h2>
+    <h2 class="flex items-center justify-between text-xl font-bold">
+      References
+      <a href="#"><ArrowUp class="text-foreground" /></a>
+    </h2>
     <div
       v-for="ref in resume.references"
       class="group flex space-y-1.5 flex-col border border-muted rounded-lg p-3 -mx-3"
