@@ -183,7 +183,7 @@ useSeoMeta({
     </h2>
     <div
       v-for="ref in resume.references"
-      class="group flex space-y-1.5 flex-col border border-muted rounded-lg p-3 -mx-3"
+      class="group flex space-y-1.5 flex-col bg-muted border border-muted rounded-lg p-3 -mx-3"
     >
       <div class="flex flex-col space-y-2 justify-between">
         <h3
