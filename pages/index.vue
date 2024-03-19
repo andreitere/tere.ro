@@ -49,6 +49,26 @@ useSeoMeta({
         />
       </div>
     </div>
+    <div class="flex [&>*]:h-[24px] [&>*]:cursor-pointer gap-3">
+      <a href="https://github.com/andreitere" target="_blank">
+        <img src="https://api.iconify.design/uim:github.svg?color=%23FFFFFF" />
+      </a>
+      <a href="https://www.instagram.com/andreiterecoasa/" target="_blank">
+        <img
+          src="https://api.iconify.design/uim:instagram.svg?color=%23FFFFFF"
+        />
+      </a>
+      <a href="https://www.facebook.com/andreiterecoasa/" target="_blank">
+        <img
+          src="https://api.iconify.design/uim:facebook-f.svg?color=%23FFFFFF"
+        />
+      </a>
+      <a href="https://www.linkedin.com/in/andrei-terecoasa" target="_blank">
+        <img
+          src="https://api.iconify.design/uim:linkedin-alt.svg?color=%23FFFFFF"
+        />
+      </a>
+    </div>
   </section>
   <Menu />
   <section class="section">
