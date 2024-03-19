@@ -34,6 +34,7 @@
     "@giscus/vue": "^3.0.0",
     "@nuxt/content": "^2.12.1",
     "@nuxtjs/google-analytics": "^2.4.0",
+    "@nuxtjs/sitemap": "^5.1.2",
     "@radix-icons/vue": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

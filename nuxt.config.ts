@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     "nuxt-og-image",
     "dayjs-nuxt",
     "nuxt-gtag",
+    "@nuxtjs/sitemap",
   ],
   extends: ["nuxt-umami"],
   css: ["~/assets/css/main.scss"],
@@ -63,7 +64,10 @@ export default defineNuxtConfig({
       host: "https://analytics.cloudcrafts.club",
       id: "b9f4ffc4-3bcb-44b5-a2f6-9672d68a4761",
       //customEndpoint: "/api/send",
-      version: 2
+      version: 2,
     },
+  },
+  site: {
+    url: 'https://tere.ro',
   },
 });
