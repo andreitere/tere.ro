@@ -49,7 +49,7 @@ useSeoMeta({
         />
       </div>
     </div>
-    <div class="flex [&>*]:h-[24px] [&>*]:cursor-pointer gap-3">
+    <div class="flex [&>*]:h-[24px] [&>*]:cursor-pointer [&>*]:flex gap-3 items-center">
       <a href="https://github.com/andreitere" target="_blank">
         <img src="https://api.iconify.design/uim:github.svg?color=%23FFFFFF" />
       </a>
@@ -68,6 +68,7 @@ useSeoMeta({
           src="https://api.iconify.design/uim:linkedin-alt.svg?color=%23FFFFFF"
         />
       </a>
+      <a href="https://teamcoding.eu/" target="_blank" class="font-bold text-lg">TC</a>
     </div>
   </section>
   <Menu />
