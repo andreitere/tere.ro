@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: {enabled: true},
+
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
@@ -11,6 +12,7 @@ export default defineNuxtConfig({
     "dayjs-nuxt",
     "nuxt-gtag",
     "@nuxtjs/sitemap",
+    "@nuxt/image"
   ],
   extends: ["nuxt-umami"],
   css: ["~/assets/css/main.scss"],
@@ -66,8 +68,5 @@ export default defineNuxtConfig({
       //customEndpoint: "/api/send",
       version: 2,
     },
-  },
-  site: {
-    url: 'https://tere.ro',
-  },
+  }
 });
