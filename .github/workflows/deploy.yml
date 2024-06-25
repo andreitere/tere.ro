@@ -11,24 +11,24 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v2
 
-      - name: Pull NodeJS 18
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.17.1'
-      
-      - uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      
-      - name: 🔨Install Dependencies
-        run: |
-          npm install
-      - name: 🔨 Generate Site
-        run: |
-          npm run generate
+#      - name: Pull NodeJS 18
+#        uses: actions/setup-node@v2
+#        with:
+#          node-version: '18.17.1'
+#
+#      - uses: actions/cache@v2
+#        with:
+#          path: node_modules
+#          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-
+#
+#      - name: 🔨Install Dependencies
+#        run: |
+#          npm install
+#      - name: 🔨 Generate Site
+#        run: |
+#          npm run generate
 
       - name: 📦 Add assets
         run: |

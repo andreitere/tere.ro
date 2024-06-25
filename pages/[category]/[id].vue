@@ -21,6 +21,13 @@ const formatDate = (date: string) => {
   day = day < 10 ? `0${day}` : day;
   return `${day}-${month}-${year}`;
 };
+useSeoMeta({
+  title: data.value?.title,
+  ogTitle: data.value?.title,
+  description: data.value?.description,
+  ogDescription: data.value?.description,
+});
+
 defineOgImageComponent("BlogImage", {
   headline: "Andrei Terecoasa",
   title: data.value?.title,
@@ -29,12 +36,7 @@ defineOgImageComponent("BlogImage", {
   colorMode: "dark",
 });
 
-useSeoMeta({
-  title: data.value?.title,
-  ogTitle: data.value?.title,
-  description: data.value?.description,
-  ogDescription: data.value?.description,
-});
+
 </script>
 
 <template>
