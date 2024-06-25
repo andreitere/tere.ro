@@ -42,35 +42,20 @@ useSeoMeta({
     <div>
       <Menu />
     </div>
-    <header
-      class="mb-8 flex flex-col space-y-2 border-b-[1px] border-solid border-gray-300 pb-2"
-    >
+    <header class="mb-8 flex flex-col space-y-2 border-b-[1px] border-solid border-gray-300 pb-2">
       <h1 class="mb-4 text-4xl font-bold">{{ data?.title }}</h1>
       <p class="text-muted-foreground text-sm">{{ data?.description }}</p>
       <div class="flex text-xs text-muted-foreground">
-        <span class="italic"
-          >Published on: {{ $dayjs(data?.date).format("DD-MM-YYYY") }}</span
-        >
+        <span class="italic">Published on: {{ $dayjs(data?.date).format("DD-MM-YYYY") }}</span>
       </div>
     </header>
     <div class="prose">
       <ContentRenderer :value="data" />
     </div>
 
-    <Giscus
-      id="comments"
-      repo="andreitere/tere.ro"
-      repoId="R_kgDOLF-PkA"
-      category="Announcements"
-      categoryId="DIC_kwDOLF-PkM4CeBWs"
-      mapping="url"
-      reactionsEnabled="1"
-      emitMetadata="0"
-      inputPosition="top"
-      theme="preferred_color_scheme"
-      lang="en"
-      loading="lazy"
-    />
+    <Giscus id="comments" repo="andreitere/tere.ro" repoId="R_kgDOLF-PkA" category="Announcements"
+      categoryId="DIC_kwDOLF-PkM4CeBWs" mapping="url" reactionsEnabled="1" emitMetadata="0" inputPosition="top"
+      theme="preferred_color_scheme" lang="en" loading="lazy" />
   </div>
 </template>
 
