@@ -1,7 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: {enabled: true},
-
+  compatibilityDate: "2024-07-08",
+  devtools: { enabled: true },
+  ssr: true,
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
@@ -56,7 +57,11 @@ export default defineNuxtConfig({
     componentDir: "./components/ui",
   },
   googleFonts: {
-    families: ["Fira Code", "Roboto Slab", "Space Mono"],
+    families: {
+      "Fira Code": true,
+      "Roboto Slab": true,
+      "Space Mono": true,
+    },
   },
   gtag: {
     id: "G-KBKD6E08Y4",
