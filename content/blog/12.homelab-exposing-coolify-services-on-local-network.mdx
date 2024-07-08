@@ -1,0 +1,53 @@
+---
+title: "Coolify - Exposing services to the local network"
+draft: false
+external: false
+description: "How to access coolify deployed services on local network. Without a domain"
+categories:
+  - Tinkering
+  - HomeLab
+tags:
+  - coolify
+  - reverse
+  - homelab
+  - local
+  - network
+date: 2024-07-08
+---
+
+Coolify is the new cool guy in town and while it works awesome mostly, there are still some topics not covered by documentation.. at least at the moment when this article is getting written.
+
+So, today's topic
+
+#### Accessing services from local network... without needing a domain.
+
+By default you are asked (even though is not required) to setup a domain for your coolify instance. But this is not required and for a homelab setup where you will access services only from the local network it's ok to leave that empty... or just use anything on that field.
+
+Assuming you get over the initial coolify setup and deployed your resource.. how can you get to it!?
+
+Let's take as a concrete example n8n which is availabe in coolify. 
+
+N8N is served on port 5678 but that's available only inside the container where it is running. To be able to connect to it via `http://{your_homelab_server_ip_address}:5678` we need to expose the port on host.
+
+For this we need to slightly change the docker-compose.yaml file.
+
+Just add the `ports` section to the docker-compose file, on the same level as `environment`, as bellow, save and redeploy. 
+
+```yaml
+ports:
+  - '5678:5678'
+```
+
+and that should do it.
+
+Quick video for it:
+
+
+<video controls class="w-full" autoplay muted>
+  <source src="/videos/12-coolify-export-port.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+Thanks
+
+🙏🏻
