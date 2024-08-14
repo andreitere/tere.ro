@@ -69,7 +69,7 @@ export default defineNuxtConfig({
   appConfig: {
     umami: {
       host: "https://analytics.cloudcrafts.club",
-      id: "b9f4ffc4-3bcb-44b5-a2f6-9672d68a4761",
+      id: "3a271c5b-afdd-441c-ae5c-37347b0a4c7e",
       //customEndpoint: "/api/send",
       version: 2,
     },
