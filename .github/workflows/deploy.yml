@@ -41,5 +41,5 @@ jobs:
           server: tere.ro
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
-          server-dir: .
+          server-dir: tere.ro/
           local-dir: ./.output/public/
