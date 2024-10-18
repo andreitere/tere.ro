@@ -27,7 +27,7 @@
   "work": [
     {
       "name": "IBM",
-      "position": "Lead Full Stack Engineer -> Senior Software Development Engineer",
+      "position": "Senior Software Development Engineer",
       "startDate": "2020-03-31",
       "highlights": [
         "ML/Ops Project Development in Finance using Python\n - Re-design and refactoring of an ML project inferring skill levels based on unstructured data\n - Developed new features to enhance the project's functionality.\n - Deployed CI/CD pipelines (Tekton/OpenShift) to improve project efficiency.\n\nContent Intelligence Platform \n - Designed and developed multiple Python-based plug-n-play microservices utilized in an orchestration pipeline for efficient document processing.\n - Implemented a robust CI/CD strategy in OpenShift environments, leveraging tools such as Tekton Pipelines\n - Maintained a deep understanding of the latest technologies and trends in the field to ensure optimal performance and functionality.\"\n\n\nData Science Project on AWS\n - migrating from KEDRO pipelines to AWS services, enabling more efficient data processing and analysis.\n - Conducting feature engineering refactoring using Python and PySpark, targeting improved accuracy and performance"
@@ -38,7 +38,7 @@
     },
     {
       "name": "IBM",
-      "position": "Full Stack Developer -> Lead Full Stack Engineer",
+      "position": "Lead Full Stack Engineer",
       "startDate": "2020-03-31",
       "endDate": "2021-03-31",
       "highlights": [

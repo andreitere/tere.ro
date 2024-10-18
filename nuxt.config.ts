@@ -1,3 +1,6 @@
+import ViteComponents from "unplugin-vue-components/vite";
+import IconsResolver from "unplugin-icons/resolver";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-07-08",
@@ -13,7 +16,7 @@ export default defineNuxtConfig({
     "dayjs-nuxt",
     "nuxt-gtag",
     "@nuxtjs/sitemap",
-    "@nuxt/image"
+    "@nuxt/image",
   ],
   extends: ["nuxt-umami"],
   css: ["~/assets/css/main.scss"],
@@ -59,8 +62,9 @@ export default defineNuxtConfig({
   googleFonts: {
     families: {
       "Fira Code": true,
-      "Roboto Slab": true,
-      "Space Mono": true,
+      "Source Sans 3": {
+        wght: [100, 200, 300, 400, 600, 900],
+      },
     },
   },
   gtag: {
@@ -73,5 +77,16 @@ export default defineNuxtConfig({
       //customEndpoint: "/api/send",
       version: 2,
     },
-  }
+  },
+  vite: {
+    plugins: [
+      ViteComponents({
+        resolvers: [
+          IconsResolver({
+            /* options */
+          }),
+        ],
+      }),
+    ],
+  },
 });

@@ -5,10 +5,10 @@
 @layer base {
   :root {
     --background: 0, 0%, 100%;
-    --foreground: 224 71.4% 4.1%;
+    --foreground: 0, 0%, 76%;
 
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: rgb(27, 27, 30);
+    --muted-foreground: 0, 0%, 80%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 224 71.4% 4.1%;
@@ -37,51 +37,53 @@
   }
 
   .dark {
-    --background: 212 29% 11%;
-    --foreground: 210 20% 98%;
-
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
-
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
-
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
-
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 20% 98%;
-
-    --ring: 216 12.2% 83.9%;
+    --background: 210, 39%, 16%; /* Deep blue background (#1E3E62) */
+    --foreground: 300, 1%, 64%; /* Vibrant orange foreground (#FF6500) */
+  
+    --muted: 0, 0%, 11%; /* Very dark grey/cyan (#0B192C) */
+    --muted-foreground: 0, 0%, 49%; /* Mid grey (#7D7D7D) */
+  
+    --popover: 230, 7%, 7%; /* Dark popover background (#111) */
+    --popover-foreground: 210, 20%, 98%; /* Light foreground text (#F4F4F4) */
+  
+    --card: 230, 7%, 8%; /* Dark card background (#1A1A1A) */
+    --card-foreground: 210, 20%, 98%; /* Light card text (#F4F4F4) */
+  
+    --border: 230, 10%, 12%; /* Subtle dark border (#202020) */
+    --input: 230, 10%, 12%; /* Same as border (#202020) */
+  
+    --primary: 210, 20%, 98%; /* Very light text (#F4F4F4) */
+    --primary-foreground: 230, 12%, 9%; /* Darker foreground for contrast (#171717) */
+  
+    --secondary: 230, 10%, 12%; /* Dark secondary color (#202020) */
+    --secondary-foreground: 210, 20%, 98%; /* Light text for contrast (#F4F4F4) */
+  
+    --accent: 230, 10%, 12%; /* Dark accent color (#202020) */
+    --accent-foreground: 210, 20%, 98%; /* Light foreground for accents (#F4F4F4) */
+  
+    --destructive: 0, 62%, 31%; /* Red for destructive actions (#C34A36) */
+    --destructive-foreground: 210, 20%, 98%; /* Light text on destructive backgrounds (#F4F4F4) */
+  
+    --ring: 216, 12%, 84%; /* Focus ring lighter blue (#D8E7F3) */
   }
+  
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  // * {
+  //   // @apply border-border;
+  // }
 
   body {
     @apply bg-background text-foreground;
   }
 }
 
-:root, .font-mono {
+:root,
+.font-mono {
   //font-family: "IBM Plex Mono", monospace;
   //font-family: "Roboto Mono", monospace;
-  font-family: "Fira Code", monospace;
+  font-family: "Source Sans 3", sans-serif;
 }
 
 html:not(.dark) {
@@ -93,7 +95,12 @@ html:not(.dark) {
 .prose {
   max-width: none;
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply tracking-tighter text-balance leading-normal;
   }
 }
@@ -103,6 +110,7 @@ a[href^="#"] {
 }
 
 .dark {
+
   //.prose-slate {
   //  --tw-prose-headings: white;
   //}
@@ -110,11 +118,10 @@ a[href^="#"] {
     --tw-prose-links: #58a6ff;
     //--tw
     --tw-prose-quotes: #b2bec3;
-    --tw-prose-body: #c8d6e5;
+    --tw-prose-body: #868686;
     --tw-prose-headings: #54a0ff;
     --tw-prose-code: #ff6b6b;
-    --tw-prose-bold: var(--muted-foreground)
-    //@apply text-white;
+    --tw-prose-bold: var(--muted-foreground) //@apply text-white;
 
   }
 }
@@ -124,19 +131,27 @@ a[href^="#"] {
   --tw-prose-code: #ee5253;
 
   code {
-    &::before, &::after {
+
+    &::before,
+    &::after {
       content: "";
     }
   }
 
 
-  * + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
+  *+h1,
+  *+h2,
+  *+h3,
+  *+h4,
+  *+h5,
+  *+h6 {
     margin-top: 2.4rem;
     margin-bottom: 1rem;
   }
 }
 
-html, * {
+html,
+* {
   transition: all;
 }
 
