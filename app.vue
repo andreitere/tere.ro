@@ -10,7 +10,6 @@ const toggleColorMode = () => {
 </script>
 
 <template>
-<!--  <p>{{colorMode}}</p>-->
   <NuxtLayout>
     <ClientOnly>
       <button @click="toggleColorMode" class="fixed top-0 right-0 p-2">

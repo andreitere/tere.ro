@@ -58,9 +58,8 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      "Fira Code": true,
-      "Roboto Slab": true,
-      "Space Mono": true,
+      "Sora": [400, 500, 600, 700],
+      "JetBrains Mono": [400, 500, 600, 700],
     },
   },
   gtag: {

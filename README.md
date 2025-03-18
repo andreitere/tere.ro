@@ -1,75 +1,12 @@
-# Nuxt 3 Minimal Starter
+# Hello, I'm Andrei! 👋
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to my personal website repository! This is where I share my thoughts, experiences, and occasionally some code.
 
-## Setup
+## About Me
 
-Make sure to install the dependencies:
+I'm a software engineer who loves building things and sharing knowledge. When I'm not coding, you can find me:
 
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+- 📸 Taking photos of beautiful landscapes
+- ✈️ Exploring new places
+- 🎮 Occasionally gaming (when time permits)
+- ☕️ Enjoying a good cup of coffee

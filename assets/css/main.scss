@@ -6,6 +6,7 @@
   :root {
     --background: 0, 0%, 100%;
     --foreground: 224 71.4% 4.1%;
+    --link: 27 96% 61%;  /* Calm orange for light mode */
 
     --muted: 220 14.3% 95.9%;
     --muted-foreground: 220 8.9% 46.1%;
@@ -39,6 +40,7 @@
   .dark {
     --background: 212 29% 11%;
     --foreground: 210 20% 98%;
+    --link: 28 94% 61%;  /* Slightly warmer orange for dark mode */
 
     --muted: 215 27.9% 16.9%;
     --muted-foreground: 217.9 10.6% 64.9%;
@@ -76,12 +78,19 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  // a {
+  //   @apply text-[hsl(var(--link))] hover:text-[hsl(var(--link)/0.8)] transition-colors duration-200;
+  //   text-decoration: none;
+  // }
 }
 
-:root, .font-mono {
-  //font-family: "IBM Plex Mono", monospace;
-  //font-family: "Roboto Mono", monospace;
-  font-family: "Fira Code", monospace;
+:root {
+  font-family: "Sora", system-ui, -apple-system, sans-serif;
+}
+
+.font-mono {
+  font-family: "JetBrains Mono", monospace;
 }
 
 html:not(.dark) {
@@ -103,24 +112,18 @@ a[href^="#"] {
 }
 
 .dark {
-  //.prose-slate {
-  //  --tw-prose-headings: white;
-  //}
   .prose {
-    --tw-prose-links: #58a6ff;
-    //--tw
+    --tw-prose-links: hsl(var(--link));
     --tw-prose-quotes: #b2bec3;
     --tw-prose-body: #c8d6e5;
     --tw-prose-headings: #54a0ff;
     --tw-prose-code: #ff6b6b;
     --tw-prose-bold: var(--muted-foreground)
-    //@apply text-white;
-
   }
 }
 
-
 .prose {
+  --tw-prose-links: hsl(var(--link));
   --tw-prose-code: #ee5253;
 
   code {
@@ -128,7 +131,6 @@ a[href^="#"] {
       content: "";
     }
   }
-
 
   * + h1, * + h2, * + h3, * + h4, * + h5, * + h6 {
     margin-top: 2.4rem;
@@ -142,5 +144,4 @@ html, * {
 
 body {
   overflow-y: scroll;
-
 }
