@@ -1,6 +1,6 @@
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: "2024-07-08",
   devtools: { enabled: true },
   ssr: true,
   modules: [
@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     url: "https://tere.ro",
   },
   ogImage: {
+    debug: true,
     fonts: [
       // will load the Noto Sans font from Google fonts
       "Fira+Code:600",
