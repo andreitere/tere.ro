@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import type { ParsedContent } from "@nuxt/content";
 import { categories_colors, getCategoryColor } from "~/lib/constants";
-
+import { getDisplayName } from "~/lib/display-names";
 const route = useRoute();
 const category = route.params.category as string;
 const page_title = category.charAt(0).toUpperCase() + category.slice(1);
 
 const article_filter = {
   draft: false,
-  categories: category !== "blog"
-    ? { $contains: [category] }
-    : { $not: { $contains: ["trips"] } }
+  category: category !== "blog"
+    ? category
+    : { $not: "trips" }
 };
 
 const formatDate = (date: string) => {
@@ -22,14 +22,24 @@ const formatDate = (date: string) => {
   }).format(d);
 };
 
-const data = await queryContent("/blog")
-  .where(article_filter)
-  .sort({ date: -1 })
-  .find();
+const data = await queryCollection("blog")
+  .where("draft", "=", false)
+  .where("category", "=", category)
+  .order("date", "DESC")
+  .all();
 
 const getArticlePath = (article: ParsedContent): string => {
-  return [article.categories?.[0], article._path?.split("/").at(-1)].join("/");
+  return "/" + [article.category, article._path?.split("/").at(-1)].join("/");
 };
+
+
+defineOgImageComponent("tere", {
+  headline: "Andrei Terecoasa",
+  title: getDisplayName(category),
+  theme: "#E67B2E",
+  colorMode: "dark",
+});
+
 </script>
 
 <template>
@@ -38,13 +48,13 @@ const getArticlePath = (article: ParsedContent): string => {
     <h1 class="my-10 text-2xl font-bold text-center">{{ page_title }}</h1>
   </div>
   <div class="gap-4 space-y-6">
-    <div v-for="article in data" :key="article._path"
+    <div v-for="article in data" :key="article.path"
       class="group relative overflow-hidden rounded-xl shadow hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
       <div class="absolute top-0 left-0 w-1 h-full transition-all duration-300 group-hover:w-4"
-        :style="{ backgroundColor: getCategoryColor(article.categories?.[0]) }">
+        :style="{ backgroundColor: getCategoryColor(article.category) }">
         <span
           class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-90 origin-center whitespace-nowrap text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          {{ article.categories?.[0] }}
+          {{ article.category }}
         </span>
       </div>
       <div class="p-4 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-900">
