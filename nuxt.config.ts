@@ -1,4 +1,3 @@
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2025-03-19",
@@ -7,16 +6,16 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
+    "@nuxtjs/sitemap",
     "@nuxt/content",
     "@nuxtjs/google-fonts",
     "unplugin-icons/nuxt",
     "nuxt-og-image",
     "dayjs-nuxt",
     "nuxt-gtag",
-    "@nuxtjs/sitemap",
-    "@nuxt/image"
+    "@nuxt/image",
+    "nuxt-umami",
   ],
-  extends: ["nuxt-umami"],
   css: ["~/assets/css/main.scss"],
   dayjs: {
     plugins: ["calendar"],
@@ -60,19 +59,15 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      "Sora": [400, 500, 600, 700],
+      Sora: [400, 500, 600, 700],
       "JetBrains Mono": [400, 500, 600, 700],
     },
   },
-  gtag: {
-    id: "G-KBKD6E08Y4",
+  umami: {
+    host: "https://analytics.cloudcrafts.club",
+    id: "3a271c5b-afdd-441c-ae5c-37347b0a4c7e",
+    //customEndpoint: "/api/send",
+    autoTrack: true,
+    version: 2,
   },
-  appConfig: {
-    umami: {
-      host: "https://analytics.cloudcrafts.club",
-      id: "3a271c5b-afdd-441c-ae5c-37347b0a4c7e",
-      //customEndpoint: "/api/send",
-      version: 2,
-    },
-  }
 });

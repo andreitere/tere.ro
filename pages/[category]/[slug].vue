@@ -7,8 +7,9 @@ const route = useRoute();
 const { slug } = route.params;
 // Get article data
 const { data: articleData } = await useAsyncData(`blog/${slug}`, () =>
-  queryContent(`blog/${slug}`).findOne()
+  queryCollection(`blog`).where("path", "=", `/blog/${slug}`).first()
 );
+
 // Set meta tags if we have article data
 useSeoMeta({
   title: articleData.value?.title,
@@ -16,7 +17,7 @@ useSeoMeta({
   description: articleData.value?.description,
   ogDescription: articleData.value?.description,
   ogType: "article",
-  ogUrl: `https://tere.ro/${articleData.value?.categories[0]}/${slug}`,
+  ogUrl: `https://tere.ro/${articleData.value?.category}/${slug}`,
 });
 
 // Add article schema
@@ -43,7 +44,7 @@ const articleSchema = {
   },
   mainEntityOfPage: {
     "@type": "WebPage",
-    "@id": `https://tere.ro/${articleData.value?.categories[0]}/${slug}`
+    "@id": `https://tere.ro/${articleData.value?.category}/${slug}`
   }
 };
 
@@ -59,8 +60,8 @@ useHead({
     { name: 'author', content: 'Andrei Terecoasa' },
     { property: 'article:published_time', content: articleData.value?.date },
     { property: 'article:modified_time', content: articleData.value?.date },
-    { property: 'article:section', content: articleData.value?.categories[0] },
-    { property: 'article:tag', content: articleData.value?.categories.join(',') },
+    { property: 'article:section', content: articleData.value?.category },
+    { property: 'article:tag', content: articleData.value?.category },
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: articleData.value?.title },
     { name: 'twitter:description', content: articleData.value?.description },
@@ -68,11 +69,11 @@ useHead({
   ]
 });
 
-defineOgImageComponent("OgImage", {
+defineOgImageComponent("tere", {
   headline: "Andrei Terecoasa",
   title: articleData.value?.title,
   description: articleData.value?.description,
-  theme: "#ff0000",
+  theme: "#E67B2E",
   colorMode: "dark",
 });
 </script>
@@ -88,12 +89,12 @@ defineOgImageComponent("OgImage", {
             }}</p>
         </div>
         <div class="flex flex-wrap gap-2 items-center justify-center">
-          <NuxtLink v-for="cat in articleData?.categories" :key="cat" :to="`/${cat}`" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all
+          <NuxtLink :to="`/${articleData?.category}`" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all
                    dark:bg-slate-800/50 dark:hover:bg-slate-700/50 dark:border-slate-700/50 dark:hover:border-slate-600/50 dark:text-gray-300 dark:hover:text-gray-200
                    bg-slate-100 hover:bg-slate-200 border border-slate-200 hover:border-slate-300 text-slate-800">
             <span class="w-2 h-2 rounded-full"
-              :style="`background: ${getCategoryColor(cat) || categories_colors.random}`"></span>
-            {{ getDisplayName(cat) }}
+              :style="`background: ${getCategoryColor(articleData?.category) || categories_colors.random}`"></span>
+            {{ getDisplayName(articleData?.category) }}
           </NuxtLink>
         </div>
         <div class="flex items-center justify-center">

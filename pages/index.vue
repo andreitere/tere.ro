@@ -8,9 +8,12 @@ import InstagramIcon from "~icons/uim/instagram";
 import FacebookIcon from "~icons/ic/baseline-facebook";
 import LinkedinIcon from "~icons/ph/linkedin-logo-bold";
 
-const { data: resume } = await useAsyncData("resume", () =>
-  queryContent("/resume").findOne()
+
+
+const { data: { value: { meta: resume } } } = await useAsyncData("resume", () =>
+  queryCollection("other").where("stem", "=", "other/resume").first()
 );
+
 
 interface WorkItem {
   startDate?: string;
@@ -31,9 +34,9 @@ const getDurationLine = (workItem: WorkItem) => {
 const personSchema = computed(() => ({
   "@context": "https://schema.org",
   "@type": "Person",
-  name: resume.value?.basics.name,
-  jobTitle: resume.value?.basics.label,
-  description: resume.value?.basics.summary,
+  name: resume?.basics?.name,
+  jobTitle: resume?.basics?.label,
+  description: resume?.basics?.summary,
   image: "https://avatars.githubusercontent.com/u/3197966?v=4",
   url: "https://tere.ro",
   sameAs: [
@@ -45,29 +48,29 @@ const personSchema = computed(() => ({
   ],
   address: {
     "@type": "PostalAddress",
-    addressLocality: resume.value?.basics.location.address
+    addressLocality: resume?.basics?.location?.address
   },
-  worksFor: resume.value?.work.map(job => ({
+  worksFor: resume?.work?.map(job => ({
     "@type": "Organization",
     name: job.name,
     url: job.url
   })),
-  alumniOf: resume.value?.education.map(edu => ({
+  alumniOf: resume?.education?.map(edu => ({
     "@type": "EducationalOrganization",
     name: edu.institution
   })),
-  knowsAbout: resume.value?.skills.map(skill => skill.name)
+  knowsAbout: resume?.skills?.map(skill => skill.name)
 }));
 
 // Enhanced meta tags
 useSeoMeta({
   title: "Andrei Terecoasa - Software Engineer",
   ogTitle: "Andrei Terecoasa - Software Engineer",
-  description: resume.value?.basics.summary,
-  ogDescription: resume.value?.basics.summary,
+  description: resume?.basics.summary,
+  ogDescription: resume?.basics.summary,
   ogType: "profile",
   ogImage: "https://avatars.githubusercontent.com/u/3197966?v=4",
-  keywords: resume.value?.skills.map(skill => skill.name).join(", "),
+  keywords: resume?.skills.map(skill => skill.name).join(", "),
 });
 
 // Add structured data to head
@@ -79,9 +82,9 @@ useHead({
     }
   ],
   meta: [
-    { name: 'author', content: resume.value?.basics.name },
-    { property: 'profile:first_name', content: resume.value?.basics.name.split(' ')[0] },
-    { property: 'profile:last_name', content: resume.value?.basics.name.split(' ')[1] },
+    { name: 'author', content: resume?.basics.name },
+    { property: 'profile:first_name', content: resume?.basics.name.split(' ')[0] },
+    { property: 'profile:last_name', content: resume?.basics.name.split(' ')[1] },
     { property: 'profile:username', content: 'andreitere' },
     { name: 'robots', content: 'index, follow' }
   ]
@@ -90,7 +93,7 @@ useHead({
 // Add this computed property in the script section after personSchema
 const groupedSkills = computed(() => {
   const groups = {};
-  resume.value?.skills.forEach(skill => {
+  resume?.skills.forEach(skill => {
     const category = skill.category || 'Other';
     if (!groups[category]) {
       groups[category] = [];
@@ -103,7 +106,7 @@ const groupedSkills = computed(() => {
 // Add this computed property after groupedSkills
 const groupedWork = computed(() => {
   const groups = {};
-  resume.value?.work.forEach(job => {
+  resume?.work.forEach(job => {
     if (!groups[job.name]) {
       groups[job.name] = {
         name: job.name,
@@ -168,7 +171,8 @@ const groupedWork = computed(() => {
         </a>
       </h2>
       <div class="space-y-12">
-        <div v-for="(company, companyName) in groupedWork" :key="companyName" class="group relative" itemscope itemtype="https://schema.org/Organization">
+        <div v-for="(company, companyName) in groupedWork" :key="companyName" class="group relative" itemscope
+          itemtype="https://schema.org/Organization">
           <!-- Company header -->
           <div class="mb-6">
             <h3 class="font-semibold text-xl group-hover:text-primary transition-colors">
@@ -183,10 +187,11 @@ const groupedWork = computed(() => {
           <div class="relative">
             <!-- Continuous timeline line -->
             <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-700/50"></div>
-            
+
             <!-- Positions -->
             <div class="space-y-8">
-              <div v-for="(position, index) in company.positions" :key="index" class="relative" itemscope itemtype="https://schema.org/WorkPosition">
+              <div v-for="(position, index) in company.positions" :key="index" class="relative" itemscope
+                itemtype="https://schema.org/WorkPosition">
                 <!-- Timeline dot -->
                 <div class="absolute left-0 top-0 w-3 h-3 rounded-full bg-primary -translate-x-[5px]"></div>
 
@@ -194,7 +199,8 @@ const groupedWork = computed(() => {
                 <div class="ml-6 space-y-2">
                   <div class="flex justify-between items-start">
                     <div class="space-y-1">
-                      <span class="text-lg font-medium text-foreground" itemprop="jobTitle">{{ position.position }}</span>
+                      <span class="text-lg font-medium text-foreground" itemprop="jobTitle">{{ position.position
+                      }}</span>
                     </div>
                     <span class="text-sm tabular-nums text-muted-foreground bg-slate-800/50 px-2 py-1 rounded-md">
                       <meta itemprop="startDate" :content="position.startDate" />
@@ -202,7 +208,8 @@ const groupedWork = computed(() => {
                       {{ getDurationLine(position) }}
                     </span>
                   </div>
-                  <p class="text-sm text-muted-foreground leading-relaxed" itemprop="description">{{ position.summary }}</p>
+                  <p class="text-sm text-muted-foreground leading-relaxed" itemprop="description">{{ position.summary }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -305,7 +312,7 @@ const groupedWork = computed(() => {
               <h3 class="text-lg font-semibold group-hover:text-primary transition-colors duration-200">
                 {{ ref.name }}
               </h3>
-              <a :href="ref.url" target="_blank" 
+              <a :href="ref.url" target="_blank"
                 class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
                 <ExternalLink class="w-4 h-4" />
               </a>
