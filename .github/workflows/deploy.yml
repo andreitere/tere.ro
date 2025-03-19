@@ -37,7 +37,7 @@ jobs:
           cp ./.deploy/Andrei_Terecoasa_Resume.pdf ./.output/public
 
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.2
+        uses: SamKirkland/FTP-Deploy-Action@4.3.5
         with:
           server: tere.ro
           username: ${{ secrets.USER }}
