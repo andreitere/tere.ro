@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - feature/new-look
 jobs:
   web-deploy:
     name: 🎉 Deploy
