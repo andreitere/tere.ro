@@ -19,10 +19,10 @@ RewriteRule ^blog/pinia-setup-stores/?$ /vue/pinia-setup-stores [R=301,L]
 RewriteRule ^blog/vue3-vuex-4-loading-wait/?$ /vue/vue3-vuex-4-loading-wait [R=301,L]
 RewriteRule ^blog/iceland-2023/?$ /trips/iceland-2023 [R=301,L]
 RewriteRule ^blog/turkey-2024/?$ /trips/turkey-2024 [R=301,L]
-RewriteRule ^blog/umami-portainer-traefik/?$ /tinkering/umami-portainer-traefik [R=301,L]
-RewriteRule ^blog/coolify-reverse-proxy-to-another-host/?$ /tinkering/coolify-reverse-proxy-to-another-host [R=301,L]
-RewriteRule ^blog/homelab-exposing-coolify-services-on-local-network/?$ /tinkering/homelab-exposing-coolify-services-on-local-network [R=301,L]
-RewriteRule ^blog/from-paper-to-json-gdg-bucharest-2024/?$ /speaking/from-paper-to-json-gdg-bucharest-2024 [R=301,L]
+RewriteRule ^blog/umami-portainer-traefik/?$ /homelab/umami-portainer-traefik [R=301,L]
+RewriteRule ^blog/coolify-reverse-proxy-to-another-host/?$ /homelab/coolify-reverse-proxy-to-another-host [R=301,L]
+RewriteRule ^blog/homelab-exposing-coolify-services-on-local-network/?$ /homelab/homelab-exposing-coolify-services-on-local-network [R=301,L]
+RewriteRule ^blog/from-paper-to-json-gdg-bucharest-2024/?$ /talks/from-paper-to-json-gdg-bucharest-2024 [R=301,L]
 
 # Generic fallback rule for any other blog URLs
 RewriteCond %{REQUEST_FILENAME} !-f
