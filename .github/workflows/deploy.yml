@@ -36,6 +36,7 @@ jobs:
           cp ./.deploy/.htaccess ./.output/public
           cp ./.deploy/Andrei_Terecoasa_Resume.pdf ./.output/public
           cp ./.deploy/google8f25c7bd7c09c867.html ./.output/public
+          cp ./.deploy/robots.txt ./.output/public
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@4.3.2
