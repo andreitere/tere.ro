@@ -1,14 +1,27 @@
 export const categories_colors = {
-  vue: "#4cd137",
-  tinkering: "#c23616",
-  random: "#40739e",
-  travel: "#0097e6",
-  talks: "#9b59b6",
-  tech: "#40739e",
-  software: "#40739e",
-  homelab: "#e67e22",
-  development: "#40739e",
-  blog: "#40739e",
+  vue: "#a8e99e",
+  tinkering: "#e78a76",
+  random: "#8fb3d1",
+  travel: "#7fcbf2",
+  talks: "#c9a3d9",
+  tech: "#8fb3d1",
+  software: "#8fb3d1",
+  homelab: "#f1b87c",
+  development: "#8fb3d1",
+  blog: "#8fb3d1",
+};
+
+export const categories_colors_muted = {
+  vue: "#a8e99e",
+  tinkering: "#e78a76",
+  random: "#8fb3d1",
+  travel: "#7fcbf2",
+  talks: "#c9a3d9",
+  tech: "#8fb3d1",
+  software: "#8fb3d1",
+  homelab: "#f1b87c",
+  development: "#8fb3d1",
+  blog: "#8fb3d1",
 };
 
 export const getCategoryColor = (category: string) => {

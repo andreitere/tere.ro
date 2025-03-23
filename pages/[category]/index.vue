@@ -28,8 +28,8 @@ const data = await queryCollection("blog")
   .order("date", "DESC")
   .all();
 
-const getArticlePath = (article: ParsedContent): string => {
-  return "/" + [article.category, article._path?.split("/").at(-1)].join("/");
+const getArticlePath = (article: BlogCollectionItem): string => {
+  return "/" + [article.category, article.path?.split("/").at(-1)].join("/");
 };
 
 
