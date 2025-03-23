@@ -66,3 +66,6 @@ RewriteRule ^([^/]+)/([^/]+)$ /$1/$2/ [L,R=301]
   BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
   Header append Vary User-Agent
 </IfModule>
+
+# Custom 404 error page for static site
+ErrorDocument 404 /200.html
