@@ -14,6 +14,8 @@ const { data: { value: { meta: resume } } } = await useAsyncData("resume", () =>
   queryCollection("other").where("stem", "=", "other/resume").first()
 );
 
+// Use the consolidated SEO composable
+useArticleMeta('resume', resume);
 
 interface WorkItem {
   startDate?: string;
@@ -30,67 +32,17 @@ const getDurationLine = (workItem: WorkItem) => {
   return `${startYear}-${endYear}`;
 };
 
-// Prepare structured data for Person
-const personSchema = computed(() => ({
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: resume?.basics?.name,
-  jobTitle: resume?.basics?.label,
-  description: resume?.basics?.summary,
-  image: "https://avatars.githubusercontent.com/u/3197966?v=4",
-  url: "https://tere.ro",
-  sameAs: [
-    "https://github.com/andreitere",
-    "https://www.instagram.com/andreiterecoasa/",
-    "https://www.facebook.com/andreiterecoasa/",
-    "https://www.linkedin.com/in/andrei-terecoasa",
-    "https://teamcoding.eu/"
-  ],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: resume?.basics?.location?.address
-  },
-  worksFor: resume?.work?.map(job => ({
-    "@type": "Organization",
-    name: job.name,
-    url: job.url
-  })),
-  alumniOf: resume?.education?.map(edu => ({
-    "@type": "EducationalOrganization",
-    name: edu.institution
-  })),
-  knowsAbout: resume?.skills?.map(skill => skill.name)
-}));
-
-// Enhanced meta tags
-useSeoMeta({
-  title: "Andrei Terecoasa - Software Engineer",
-  ogTitle: "Andrei Terecoasa - Software Engineer",
+defineOgImageComponent("tere", {
+  headline: "Andrei Terecoasa",
+  title: resume?.basics.name,
   description: resume?.basics.summary,
-  ogDescription: resume?.basics.summary,
-  ogType: "profile",
-  ogImage: "https://avatars.githubusercontent.com/u/3197966?v=4",
-  keywords: resume?.skills.map(skill => skill.name).join(", "),
+  theme: "#E67B2E",
+  colorMode: "dark",
 });
 
-// Add structured data to head
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify(personSchema.value)
-    }
-  ],
-  meta: [
-    { name: 'author', content: resume?.basics.name },
-    { property: 'profile:first_name', content: resume?.basics.name.split(' ')[0] },
-    { property: 'profile:last_name', content: resume?.basics.name.split(' ')[1] },
-    { property: 'profile:username', content: 'andreitere' },
-    { name: 'robots', content: 'index, follow' }
-  ]
-});
+useArticleMeta('resume', resume);
 
-// Add this computed property in the script section after personSchema
+// Prepare grouped skills
 const groupedSkills = computed(() => {
   const groups = {};
   resume?.skills.forEach(skill => {
@@ -200,7 +152,7 @@ const groupedWork = computed(() => {
                   <div class="flex justify-between items-start">
                     <div class="space-y-1">
                       <span class="text-lg font-medium text-foreground" itemprop="jobTitle">{{ position.position
-                      }}</span>
+                        }}</span>
                     </div>
                     <span class="text-sm tabular-nums text-muted-foreground bg-slate-800/50 px-2 py-1 rounded-md">
                       <meta itemprop="startDate" :content="position.startDate" />

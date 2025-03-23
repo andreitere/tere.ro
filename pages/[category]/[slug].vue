@@ -2,6 +2,8 @@
 import { categories_colors, getCategoryColor } from "~/lib/constants";
 import { getDisplayName } from "~/lib/display-names";
 import Giscus from "@giscus/vue";
+import TagList from "~/components/TagList.vue";
+import type { BlogCollectionItem } from "~/types/content";
 
 const route = useRoute();
 const { slug, category } = route.params;
@@ -106,14 +108,36 @@ defineOgImageComponent("tere", {
   theme: "#E67B2E",
   colorMode: "dark",
 });
+
+// Add this near the top of your script setup
+// After fetching the article data
+useArticleMeta('blog', articleData.value as BlogCollectionItem);
 </script>
 
 <template>
   <div itemscope itemtype="https://schema.org/BlogPosting">
     <Menu :centered="true" />
     <div class="mx-auto max-w-4xl space-y-6">
-      <header class="mb-8 flex flex-col space-y-4 border-b-[1px] border-solid border-gray-300 pb-4">
-        <div class="text-center space-y-4">
+      <header :class="[
+        'mb-8 flex flex-col space-y-4 pb-4 relative',
+        articleData?.tags?.includes('tips') ? 'border-0' : 'border-b-[1px] border-solid border-gray-300'
+      ]">
+        <div v-if="articleData?.tags?.includes('tips')" class="absolute  left-0 right-0 flex justify-center">
+          <div class="px-4 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 dark:from-amber-600 dark:to-amber-700 
+            text-white dark:text-amber-50 text-sm font-medium rounded-full shadow-md flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z" />
+              <path d="M2 17l10 5 10-5" />
+              <path d="M2 12l10 5 10-5" />
+            </svg>
+            Tip
+          </div>
+        </div>
+        <div :class="[
+          'text-center space-y-4 rounded-xl',
+          articleData?.tags?.includes('tips') ? 'bg-gradient-to-br from-amber-50/80 via-amber-50/40 to-white dark:from-amber-900/30 dark:via-amber-900/10 dark:to-gray-900 p-8 border border-amber-200 dark:border-amber-800 mt-4' : ''
+        ]">
           <h1 class="text-4xl font-bold" itemprop="headline">{{ articleData?.title }}</h1>
           <p class="text-muted-foreground text-sm max-w-2xl mx-auto" itemprop="description">{{ articleData?.description
             }}</p>
@@ -127,6 +151,7 @@ defineOgImageComponent("tere", {
             {{ getDisplayName(articleData?.category) }}
           </NuxtLink>
         </div>
+        <!-- <TagList :tags="articleData?.tags" size="md" class="justify-center" /> -->
         <div class="flex items-center justify-center">
           <time :datetime="articleData?.date"
             class="px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-medium flex items-center gap-1.5"

@@ -13,6 +13,7 @@ export default defineContentConfig({
         draft: z.boolean().default(false),
         meta: z.object({}).default({}),
         image: z.string().optional(),
+        tags: z.array(z.string()).optional(),
       }),
     }),
     other: defineCollection({

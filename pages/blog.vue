@@ -22,7 +22,10 @@ const data = await queryCollection("blog")
   .where("category", "<>", "travel")
   .order("date", "DESC")
   .all();
-const getArticlePath = (article: ParsedContent): string => {
+// Use the new composable for meta tags
+useArticleMeta();
+
+const getArticlePath = (article: BlogCollectionItem): string => {
   return "/" + [article.category, article.path?.split("/").at(-1)].join("/");
 };
 </script>
