@@ -67,5 +67,5 @@ RewriteRule ^([^/]+)/([^/]+)$ /$1/$2/ [L,R=301]
   Header append Vary User-Agent
 </IfModule>
 
-# Custom 404 error page for static site
-ErrorDocument 404 /200.html
+# Custom 404 error page
+ErrorDocument 404 /not-found.html
