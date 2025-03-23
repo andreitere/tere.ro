@@ -1,7 +1,9 @@
 RewriteEngine on
-RewriteCond %{HTTP_HOST} ^tere\.ro$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.tere\.ro$
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.tere\.ro$ [NC]
+RewriteRule ^(.*)$ https://tere.ro/$1 [R=301,L]
 
+# Redirect HTTP to HTTPS
 RewriteCond %{SERVER_PORT} 80
 RewriteRule ^(.*)$ https://tere.ro/$1 [R,L]
 
