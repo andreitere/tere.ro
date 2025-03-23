@@ -4,11 +4,41 @@ import { getDisplayName } from "~/lib/display-names";
 import Giscus from "@giscus/vue";
 
 const route = useRoute();
-const { slug } = route.params;
+const { slug, category } = route.params;
 // Get article data
 const { data: articleData } = await useAsyncData(`blog/${slug}`, () =>
   queryCollection(`blog`).where("path", "=", `/blog/${slug}`).first()
 );
+
+// Get next and previous articles
+const { data: allArticles } = await useAsyncData('all-articles', () =>
+  queryCollection('blog')
+    .where("draft", "=", false)
+    .order("date", "DESC")
+    .all()
+);
+
+// Find current article index
+const currentIndex = allArticles.value?.findIndex(article => article.path === `/blog/${slug}`) || -1;
+const prevArticle = currentIndex > 0 ? allArticles.value?.[currentIndex - 1] : null;
+const nextArticle = currentIndex < (allArticles.value?.length || 0) - 1 ? allArticles.value?.[currentIndex + 1] : null;
+
+// Get related articles from same category (latest 2)
+const { data: relatedArticles } = await useAsyncData('related-articles', () =>
+  queryCollection('blog')
+    .where("draft", "=", false)
+    .where("category", "=", articleData.value?.category)
+    .where("path", "<>", `/blog/${slug}`)
+    .order("date", "DESC")
+    .limit(2)
+    .all()
+);
+
+// Helper function to get article URL
+const getArticleUrl = (article) => {
+  const slug = article.path?.split("/").at(-1);
+  return `/${article.category}/${slug}`;
+};
 
 // Set meta tags if we have article data
 useSeoMeta({
@@ -115,6 +145,40 @@ defineOgImageComponent("tere", {
       <div class="prose" itemprop="articleBody">
         <ContentRenderer :value="articleData" />
       </div>
+
+      <!-- Navigation -->
+      <nav class="flex justify-between items-center py-8 border-t border-gray-200 dark:border-gray-800">
+        <div v-if="prevArticle" class="flex-1">
+          <NuxtLink :to="getArticleUrl(prevArticle)" class="group flex flex-col gap-1">
+            <span class="text-sm text-gray-500 dark:text-gray-400">Previous</span>
+            <span class="font-medium group-hover:text-primary transition-colors">{{ prevArticle.title }}</span>
+          </NuxtLink>
+        </div>
+        <div v-if="nextArticle" class="flex-1 text-right">
+          <NuxtLink :to="getArticleUrl(nextArticle)" class="group flex flex-col gap-1">
+            <span class="text-sm text-gray-500 dark:text-gray-400">Next</span>
+            <span class="font-medium group-hover:text-primary transition-colors">{{ nextArticle.title }}</span>
+          </NuxtLink>
+        </div>
+      </nav>
+
+      <!-- Related Articles -->
+      <div v-if="relatedArticles?.length" class="py-8 border-t border-gray-200 dark:border-gray-800">
+        <h2 class="text-xl font-bold mb-6">More from {{ getDisplayName(articleData?.category) }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <NuxtLink v-for="article in relatedArticles" :key="article.path" :to="getArticleUrl(article)"
+            class="group p-4 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary dark:hover:border-primary transition-colors flex flex-col h-full">
+            <div class="flex-grow">
+              <h3 class="font-medium mb-2 group-hover:text-primary transition-colors">{{ article.title }}</h3>
+              <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{{ article.description }}</p>
+            </div>
+            <div class="text-xs text-gray-500 dark:text-gray-400 mt-4">
+              {{ $dayjs(article.date).format("MMMM D, YYYY") }}
+            </div>
+          </NuxtLink>
+        </div>
+      </div>
+
       <div itemprop="author" itemscope itemtype="https://schema.org/Person">
         <meta itemprop="name" content="Andrei Terecoasa" />
         <meta itemprop="url" content="https://tere.ro" />
