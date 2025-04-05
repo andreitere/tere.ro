@@ -16,6 +16,21 @@ export default defineContentConfig({
         tags: z.array(z.string()).optional(),
       }),
     }),
+    projects: defineCollection({
+      type: "page",
+      source: "projects/*.{md,mdx}",
+      schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        date: z.string(),
+        endDate: z.string().optional(),
+        active: z.boolean().optional(),
+        external: z.boolean().optional(),
+        externalUrl: z.string().optional(),
+        githubUrl: z.string().optional(),
+        tags: z.array(z.string()),
+      }),
+    }),
     other: defineCollection({
       source: "other/*.json",
       type: "data",

@@ -3,6 +3,7 @@ export const categories = {
   tinkering: "Tinkering",
   random: "Random",
   trips: "Travel",
+  travel: "Travel",
   talks: "Talks",
   tech: "Technology",
   software: "Software",
