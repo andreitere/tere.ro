@@ -145,3 +145,12 @@ html, * {
 body {
   overflow-y: scroll;
 }
+
+html, body, #__nuxt {
+  @apply min-h-screen;
+}
+
+#__nuxt {
+  @apply flex flex-col;
+}
+

@@ -1,10 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div
-    class="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-8"
-  >
-    <div class="mx-auto max-w-6xl space-y-6">
+  <div class="h-full flex flex-col flex-grow container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-12 md:p-8">
+    <div class="mx-auto max-w-6xl space-y-6 flex-grow flex flex-col">
       <slot />
     </div>
   </div>
