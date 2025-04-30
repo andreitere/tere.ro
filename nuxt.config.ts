@@ -64,7 +64,7 @@ export default defineNuxtConfig({
     },
   },
   umami: {
-    host: "https://analytics.cloudcrafts.club",
+    host: "https://analytics.swninja.dev",
     id: "3a271c5b-afdd-441c-ae5c-37347b0a4c7e",
     //customEndpoint: "/api/send",
     autoTrack: true,
