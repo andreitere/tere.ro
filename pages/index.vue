@@ -57,7 +57,7 @@ useArticleMeta('resume', resume);
           </p>
           <p class="text-pretty font-mono text-sm leading-none text-muted-foreground flex items-center">
             <MaterialSymbolsGlobe class="mr-2" />
-            <span itemprop="address">{{ resume?.basics.location.address }}</span>
+            <span itemprop="address">{{ resume?.basics.location.city }}, {{ resume?.basics.location.country }}</span>
           </p>
         </div>
         <div class="flex-shrink">
