@@ -29,6 +29,19 @@
                 </a>
             </div>
         </header>
+        <section class="section font-mono" id="download-cv">
+            <div class="flex justify-center">
+                <a
+                    href="/Andrei_Terecoasa_Resume.pdf"
+                    download
+                    target="_blank"
+                    class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-primary dark:bg-secondary text-white font-semibold hover:bg-primary/80 transition-colors"
+                >
+                    <div class="flex items-center"><PdfIcon class="w-5 h-5 mr-2" /> version</div>
+                    
+                </a>
+            </div>
+        </section>
         <section class="section font-mono " id="work">
             <h2 class="flex justify-between items-center text-2xl font-bold mb-6">
                 Work Experience
@@ -208,6 +221,7 @@ import GithubIcon from "~icons/mdi/github";
 import InstagramIcon from "~icons/uim/instagram";
 import FacebookIcon from "~icons/ic/baseline-facebook";
 import LinkedinIcon from "~icons/ph/linkedin-logo-bold";
+import PdfIcon from "~icons/tabler/pdf";
 import XIcon from "~icons/ph/x-bold";
 import MaterialSymbolsGlobe from "~icons/material-symbols/globe";
 
