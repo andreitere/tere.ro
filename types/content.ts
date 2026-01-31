@@ -1,3 +1,20 @@
+export interface HowToStep {
+  name: string
+  text: string
+  image?: string
+}
+
+export interface HowToData {
+  totalTime?: string // ISO 8601 duration, e.g., "PT30M" for 30 minutes
+  estimatedCost?: {
+    currency: string
+    value: string
+  }
+  supply?: string[]
+  tool?: string[]
+  steps: HowToStep[]
+}
+
 export interface BlogCollectionItem {
   title: string
   description: string
@@ -9,6 +26,7 @@ export interface BlogCollectionItem {
   image?: string
   path?: string
   category?: string
+  howto?: HowToData // HowTo schema for tutorial articles
 }
 
 export interface ProjectCollectionItem {

@@ -32,6 +32,8 @@ const getArticlePath = (article: BlogCollectionItem): string => {
   return "/" + [article.category, article.path?.split("/").at(-1)].join("/");
 };
 
+// Add breadcrumbs for SEO - shows "Home > Blog > Category" in Google
+useBreadcrumbsForCategory(category);
 
 defineOgImageComponent("tere", {
   headline: "Andrei Terecoasa",

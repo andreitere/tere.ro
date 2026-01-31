@@ -12,6 +12,9 @@ const { data: { value: { meta: resume } } } = await useAsyncData("resume", () =>
 
 useArticleMeta('resume', resume);
 
+// Add WebSite schema for sitelinks search box in Google
+useWebsiteSchema();
+
 defineOgImageComponent("tere", {
   headline: "Andrei Terecoasa",
   title: resume?.basics.name,

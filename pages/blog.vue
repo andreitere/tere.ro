@@ -20,6 +20,9 @@ const data = await queryCollection("blog")
 
 useArticleMeta();
 
+// Add breadcrumbs for SEO - shows "Home > Blog" in Google
+useBreadcrumbsForBlog();
+
 const getArticlePath = (article: BlogCollectionItem): string => {
   return "/" + [article.category, article.path?.split("/").at(-1)].join("/");
 };

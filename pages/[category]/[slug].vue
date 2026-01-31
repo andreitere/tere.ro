@@ -6,7 +6,7 @@ import TagList from "~/components/TagList.vue";
 import type { BlogCollectionItem } from "~/types/content";
 
 const route = useRoute();
-const { slug, category } = route.params;
+const { slug, category } = route.params as { slug: string; category: string };
 // Get article data
 const { data: articleData } = await useAsyncData(`blog/${slug}`, () =>
   queryCollection(`blog`).where("path", "=", `/blog/${slug}`).first()
@@ -112,6 +112,27 @@ defineOgImageComponent("tere", {
 // Add this near the top of your script setup
 // After fetching the article data
 useArticleMeta('blog', articleData.value as BlogCollectionItem);
+
+// Add breadcrumbs for SEO - shows "Home > Blog > Category > Article" in Google
+useBreadcrumbsForArticle(
+  category,
+  articleData.value?.title || '',
+  slug
+);
+
+// Add HowTo schema if article has howto data in frontmatter
+if (articleData.value?.howto) {
+  useHowToSchema(
+    {
+      name: articleData.value.title || '',
+      description: articleData.value.description || '',
+      image: articleData.value.image,
+      totalTime: articleData.value.howto.totalTime,
+      steps: articleData.value.howto.steps || [],
+    },
+    `/${category}/${slug}`
+  );
+}
 </script>
 
 <template>

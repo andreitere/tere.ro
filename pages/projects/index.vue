@@ -19,6 +19,9 @@ useHead({
     },
   ],
 })
+
+// Add breadcrumbs for SEO - shows "Home > Projects" in Google
+useBreadcrumbsForProjects();
 </script>
 
 <template>
