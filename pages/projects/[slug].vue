@@ -26,6 +26,14 @@ useHead({
     },
   ],
 })
+
+defineOgImageComponent("tere", {
+  headline: "Andrei Terecoasa",
+  title: project.value?.title || 'Project',
+  description: project.value?.description || '',
+  theme: "#bb9af7",
+  category: "project",
+});
 </script>
 
 <template>

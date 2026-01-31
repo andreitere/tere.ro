@@ -23,6 +23,14 @@ useArticleMeta();
 // Add breadcrumbs for SEO - shows "Home > Blog" in Google
 useBreadcrumbsForBlog();
 
+defineOgImageComponent("tere", {
+  headline: "Andrei Terecoasa",
+  title: "Blog",
+  description: "Debugging stories, config recipes, and things I learned the hard way",
+  theme: "#7aa2f7",
+  category: "blog",
+});
+
 const getArticlePath = (article: BlogCollectionItem): string => {
   return "/" + [article.category, article.path?.split("/").at(-1)].join("/");
 };

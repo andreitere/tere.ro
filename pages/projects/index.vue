@@ -22,6 +22,14 @@ useHead({
 
 // Add breadcrumbs for SEO - shows "Home > Projects" in Google
 useBreadcrumbsForProjects();
+
+defineOgImageComponent("tere", {
+  headline: "Andrei Terecoasa",
+  title: "Projects",
+  description: "Shipped code, weekend experiments, and ideas that escaped my head",
+  theme: "#bb9af7",
+  category: "projects",
+});
 </script>
 
 <template>
