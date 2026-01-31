@@ -4,69 +4,81 @@
 
 @layer base {
   :root {
-    --background: 0, 0%, 100%;
-    --foreground: 224 71.4% 4.1%;
-    --link: 27 96% 61%;  /* Calm orange for light mode */
+    /* Retro-Futuristic Light Mode - Warm & Vibrant */
+    --background: 40 30% 97%;
+    --foreground: 20 25% 10%;
+    --link: 24 100% 55%;  /* Vivid warm orange */
 
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted: 35 20% 92%;
+    --muted-foreground: 20 15% 40%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
+    --popover: 40 30% 97%;
+    --popover-foreground: 20 25% 10%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
+    --card: 40 25% 99%;
+    --card-foreground: 20 25% 10%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
+    --border: 35 25% 85%;
+    --input: 35 25% 85%;
 
-    --primary: 220.9 39.3% 11%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 24 100% 55%;  /* Vibrant orange as primary */
+    --primary-foreground: 40 30% 97%;
 
-    --secondary: 220 14.3% 95.9%;
-    --secondary-foreground: 220.9 39.3% 11%;
+    --secondary: 35 20% 92%;
+    --secondary-foreground: 20 25% 10%;
 
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
+    --accent: 180 60% 45%;  /* Teal accent for retro-futuristic contrast */
+    --accent-foreground: 40 30% 97%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 20% 98%;
 
-    --ring: 224 71.4% 4.1%;
+    --ring: 24 100% 55%;
 
     --radius: 0.5rem;
+
+    /* Retro-futuristic custom properties */
+    --glow-color: 24 100% 55%;
+    --grid-color: rgba(230, 123, 46, 0.08);
+    --scanline-opacity: 0.02;
   }
 
   .dark {
-    --background: 212 29% 11%;
-    --foreground: 210 20% 98%;
-    --link: 28 94% 61%;  /* Slightly warmer orange for dark mode */
+    /* Retro-Futuristic Dark Mode - Neon & Deep */
+    --background: 220 25% 8%;
+    --foreground: 40 25% 95%;
+    --link: 24 100% 60%;  /* Neon orange for dark mode */
 
-    --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 15% 60%;
 
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
+    --popover: 220 25% 10%;
+    --popover-foreground: 40 25% 95%;
 
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
+    --card: 220 22% 12%;
+    --card-foreground: 40 25% 95%;
 
-    --border: 215 27.9% 16.9%;
-    --input: 215 27.9% 16.9%;
+    --border: 220 20% 20%;
+    --input: 220 20% 20%;
 
-    --primary: 210 20% 98%;
-    --primary-foreground: 220.9 39.3% 11%;
+    --primary: 24 100% 60%;  /* Neon orange */
+    --primary-foreground: 220 25% 8%;
 
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 40 25% 95%;
 
-    --accent: 215 27.9% 16.9%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 175 70% 50%;  /* Cyan/teal for that retro-futuristic pop */
+    --accent-foreground: 220 25% 8%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62.8% 50%;
     --destructive-foreground: 210 20% 98%;
 
-    --ring: 216 12.2% 83.9%;
+    --ring: 24 100% 60%;
+
+    /* Dark mode retro properties */
+    --glow-color: 24 100% 60%;
+    --grid-color: rgba(230, 123, 46, 0.05);
+    --scanline-opacity: 0.03;
   }
 }
 
@@ -77,33 +89,68 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "ss02", "cv01";
   }
-
-  // a {
-  //   @apply text-[hsl(var(--link))] hover:text-[hsl(var(--link)/0.8)] transition-colors duration-200;
-  //   text-decoration: none;
-  // }
 }
 
+/* Typography - Retro-Futuristic */
 :root {
-  font-family: "Sora", system-ui, -apple-system, sans-serif;
+  font-family: "Outfit", system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .font-mono {
-  font-family: "JetBrains Mono", monospace;
+  font-family: "Space Mono", "IBM Plex Mono", monospace;
+  letter-spacing: -0.02em;
 }
 
+/* Atmospheric Background - Retro Grid */
 html:not(.dark) {
   body {
-    background: url("assets/bg.svg") fixed;
+    background: 
+      /* Subtle noise texture */
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E"),
+      /* Gradient */
+      linear-gradient(135deg, hsl(40 30% 97%) 0%, hsl(35 25% 94%) 50%, hsl(30 20% 92%) 100%);
+    background-attachment: fixed;
   }
 }
 
+.dark body {
+  background: 
+    /* Scanlines effect */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    ),
+    /* Grid pattern */
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
+    /* Deep gradient */
+    radial-gradient(ellipse at 50% 0%, hsl(220 30% 15%) 0%, hsl(220 25% 8%) 70%);
+  background-size: 100% 100%, 40px 40px, 40px 40px, 100% 100%;
+  background-attachment: fixed;
+}
+
+/* Prose styling */
 .prose {
   max-width: none;
 
   h1, h2, h3, h4, h5, h6 {
-    @apply tracking-tighter text-balance leading-normal;
+    @apply tracking-tight text-balance leading-tight;
+    font-family: "Outfit", sans-serif;
+    font-weight: 700;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
 
@@ -114,17 +161,17 @@ a[href^="#"] {
 .dark {
   .prose {
     --tw-prose-links: hsl(var(--link));
-    --tw-prose-quotes: #b2bec3;
-    --tw-prose-body: #c8d6e5;
-    --tw-prose-headings: #54a0ff;
-    --tw-prose-code: #ff6b6b;
-    --tw-prose-bold: var(--muted-foreground)
+    --tw-prose-quotes: hsl(220 15% 70%);
+    --tw-prose-body: hsl(220 15% 75%);
+    --tw-prose-headings: hsl(var(--foreground));
+    --tw-prose-code: hsl(var(--accent));
+    --tw-prose-bold: hsl(var(--foreground));
   }
 }
 
 .prose {
   --tw-prose-links: hsl(var(--link));
-  --tw-prose-code: #ee5253;
+  --tw-prose-code: hsl(var(--accent));
 
   code {
     &::before, &::after {
@@ -138,8 +185,9 @@ a[href^="#"] {
   }
 }
 
+/* Smooth transitions */
 html, * {
-  transition: all;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 body {
@@ -154,3 +202,160 @@ html, body, #__nuxt {
   @apply flex flex-col;
 }
 
+/* Retro-Futuristic Utilities */
+@layer utilities {
+  /* Glow effect for interactive elements */
+  .glow {
+    box-shadow: 0 0 20px -5px hsl(var(--glow-color) / 0.3);
+  }
+
+  .glow-hover:hover {
+    box-shadow: 0 0 30px -5px hsl(var(--glow-color) / 0.5);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Retro border style */
+  .retro-border {
+    border: 1px solid hsl(var(--border));
+    box-shadow: 
+      inset 0 1px 0 hsl(var(--background) / 0.5),
+      0 2px 4px hsl(var(--foreground) / 0.05);
+  }
+
+  /* Terminal-style cursor blink */
+  .cursor-blink::after {
+    content: "_";
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  /* Stagger animation delays for children */
+  .stagger-children > *:nth-child(1) { animation-delay: 0.05s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.15s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.25s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.3s; }
+
+  /* Fade in animation */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from { 
+      opacity: 0; 
+      transform: translateY(10px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Slide in from left */
+  .animate-slide-in {
+    animation: slideIn 0.4s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  @keyframes slideIn {
+    to { 
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Code block styling for light mode */
+html:not(.dark) {
+  pre, pre[class*="shiki"] {
+    background-color: hsl(35 30% 96%) !important;
+    border: 1px solid hsl(35 25% 88%);
+    border-radius: 0.5rem;
+  }
+
+  pre code, pre[class*="shiki"] code {
+    background: transparent !important;
+    color: hsl(20 25% 25%) !important;
+  }
+
+  /* Shiki token colors for light mode */
+  pre .line {
+    color: hsl(20 25% 30%);
+  }
+
+  /* Comments */
+  pre [style*="color:#6A737D"],
+  pre [style*="color: #6A737D"],
+  pre [style*="color:#6a737d"],
+  pre .comment {
+    color: hsl(20 10% 50%) !important;
+  }
+
+  /* Strings */
+  pre [style*="color:#032F62"],
+  pre [style*="color: #032F62"],
+  pre [style*="color:#9ECBFF"],
+  pre [style*="color: #9ECBFF"],
+  pre .string {
+    color: hsl(150 60% 35%) !important;
+  }
+
+  /* Keywords */
+  pre [style*="color:#D73A49"],
+  pre [style*="color: #D73A49"],
+  pre [style*="color:#F97583"],
+  pre [style*="color: #F97583"],
+  pre .keyword {
+    color: hsl(340 70% 45%) !important;
+  }
+
+  /* Functions */
+  pre [style*="color:#6F42C1"],
+  pre [style*="color: #6F42C1"],
+  pre [style*="color:#B392F0"],
+  pre [style*="color: #B392F0"],
+  pre .function {
+    color: hsl(260 50% 50%) !important;
+  }
+
+  /* Variables/Properties */
+  pre [style*="color:#E36209"],
+  pre [style*="color: #E36209"],
+  pre [style*="color:#FFAB70"],
+  pre [style*="color: #FFAB70"],
+  pre .variable {
+    color: hsl(24 80% 45%) !important;
+  }
+
+  /* Numbers */
+  pre [style*="color:#005CC5"],
+  pre [style*="color: #005CC5"],
+  pre [style*="color:#79B8FF"],
+  pre [style*="color: #79B8FF"],
+  pre .number {
+    color: hsl(210 80% 40%) !important;
+  }
+}
+
+/* Dark mode code blocks */
+.dark {
+  pre, pre[class*="shiki"] {
+    background-color: hsl(220 25% 12%) !important;
+    border: 1px solid hsl(220 20% 20%);
+    border-radius: 0.5rem;
+  }
+}

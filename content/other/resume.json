@@ -1,12 +1,12 @@
 {
   "basics": {
-    "name": "👨🏼‍💻 Andrei Terecoasa",
-    "label": "Passionated Senior Software Development Engineer | FullStack JS, ML/Ops, Python",
+    "name": "Andrei Terecoasa",
+    "label": "Senior Software Engineer | Full Stack JS, Python, ML/Ops",
     "image": "",
     "email": "terecoasa.andrei@gmail.com",
     "phone": "0729695506",
     "url": "https://tere.ro",
-    "summary": "With over seven years of experience in production-ready environments, I have honed my skills in building robust, scalable, and efficient applications.\n\nIn recent years, I have taken on new challenges in the fields of Data Science, Machine Learning, and Content Intelligence.",
+    "summary": "I turn complex problems into working software. Over 7+ years, I've shipped production systems across full-stack development, ML pipelines, and cloud infrastructure. Currently building at IBM, where I architect solutions that connect frontend, backend, and machine learning into cohesive products.",
     "location": {
       "countryCode": "RO",
       "city": "Bucharest",
@@ -38,7 +38,7 @@
       "highlights": [
         "ML/Ops Project Development in Finance using Python\n - Re-design and refactoring of an ML project inferring skill levels based on unstructured data\n - Developed new features to enhance the project's functionality.\n - Deployed CI/CD pipelines (Tekton/OpenShift) to improve project efficiency.\n\nContent Intelligence Platform \n - Designed and developed multiple Python-based plug-n-play microservices utilized in an orchestration pipeline for efficient document processing.\n - Implemented a robust CI/CD strategy in OpenShift environments, leveraging tools such as Tekton Pipelines\n - Maintained a deep understanding of the latest technologies and trends in the field to ensure optimal performance and functionality.\"\n\n\nData Science Project on AWS\n - migrating from KEDRO pipelines to AWS services, enabling more efficient data processing and analysis.\n - Conducting feature engineering refactoring using Python and PySpark, targeting improved accuracy and performance"
       ],
-      "summary": "Experienced Software Engineer adept at architecting and building applications that seamlessly integrate ML, MLOps, Front-End, and Back-End technologies. Proficient in Python and JavaScript, I excel in creating solutions that encompass a wide range of tech disciplines.",
+      "summary": "Leading ML/Ops and full-stack projects across finance and content intelligence. I design Python microservices, build CI/CD pipelines in OpenShift, and migrate data pipelines to AWS. My code processes documents at scale and helps teams extract insights from unstructured data.",
       "url": "https://www.linkedin.com/company/1009",
       "location": "Bucureşti, România"
     },
@@ -53,7 +53,7 @@
         "Created a reusable UI component library to improve development efficiency",
         "Implemented effective architecture for data visualization and analysis"
       ],
-      "summary": "As a senior JavaScript developer, I expanded my expertise into Python while designing and developing advanced data science dashboards for the oil industry. This involved using ReactJS, VueJS, NodeJS, and Azure.",
+      "summary": "Built data science dashboards for the oil industry and created a reusable UI component library that cut development time across projects. Tech stack: React, Vue, Node.js, Python, and Azure.",
       "url": "https://www.linkedin.com/company/1009",
       "location": "Bucureşti, România"
     },
@@ -65,7 +65,7 @@
       "highlights": [
         "Global Chat Bot Project\n\n - Architecture / Design / Implementation for a Siemens AG on a a one-of-a-kind AI-based virtual agent \n - that innovates employee support (public reference)\n - Lead the team migrating from AngularJS to VueJS\n - Vue, AngularJS, NodeJS, MongoDB, IBM Cloud\n - Integration Testing\n\nhttps://www.ibm.com/case-studies/siemens-ag-watson-ai"
       ],
-      "summary": "Collaborated in a team to develop a distinctive ChatBot aimed at assisting employees with HR-related issues, as part of the Global Chat Bot Project for Siemens AG.",
+      "summary": "Core developer on Siemens AG's AI virtual agent—a chatbot that handles employee HR support. Led the migration from AngularJS to Vue.js and owned integration testing.",
       "url": "https://www.linkedin.com/company/1009",
       "location": "Bucharest, Romania"
     },
@@ -77,7 +77,7 @@
       "highlights": [
         "I joined their efforts to internationalize a networking device management application comprised of many smaller parts written in various programming languages or frameworks. From pure Javascript to jQuery, AngularJS, or Java we had to parse, extract and adapt our i18n strategy to make our product available in multiple languages.\n\nWhile the internationalization task itself was very challenging, the thing I was super proud about was a tool I built via an extension to the SublimeText editor, which will have helped the team easily extract the strings, replace them with library-specific calls for the i18n and then save the matches into the database. With the help of some API written in NodeJS and also some scheduled jobs to easily translate the strings, we saved a great deal of time which we invested in testing and refinements."
       ],
-      "summary": "Joined a team to internationalize a multifaceted networking device management application, handling a variety of programming languages and frameworks from JavaScript, jQuery, AngularJS, to Java.",
+      "summary": "Internationalized a network device management app across multiple frameworks (JS, jQuery, Angular, Java). Built a SublimeText extension that automated string extraction and saved the team weeks of manual work.",
       "url": "https://www.linkedin.com/company/5300",
       "location": "București, România"
     },
@@ -89,7 +89,7 @@
       "highlights": [
         "I joined NXP while still being a student and this was the first big step in my career providing me the best place to harden my existing frontend skills and also develop new ones.\n\nStarted with small UI fixes in the Bootstrap+jQuery environment for an internal system on the Q&A department I ended up refactoring/upgrading almost fully the frontend to the latest libraries versions and also developing new features in the PHP backend. Besides this I also co-owned the setup for the deplyoment environment (switched from a windows to a linux machine)."
       ],
-      "summary": "Starting as a student, I initially focused on modest UI fixes but gradually progressed to successfully deliver a thoroughly refactored frontend and an improved backend.",
+      "summary": "Started with UI fixes, ended up refactoring the entire frontend and building new backend features in PHP. Also migrated the deployment environment from Windows to Linux.",
       "url": "https://www.linkedin.com/company/1088",
       "location": "Bucharest, Romania"
     }

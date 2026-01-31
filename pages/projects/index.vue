@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { ProjectCollectionItem } from '~/types/content'
-import Menu from '~/components/Menu.vue'
 import ExternalLink from "~icons/mingcute/external-link-line"
 import GithubIcon from "~icons/mdi/github"
+import DotFilled from "~icons/ph/dot-fill"
 
 const { data } = await useAsyncData<ProjectCollectionItem[]>('projects', () => 
   queryCollection<'projects'>('projects')
@@ -22,81 +22,123 @@ useHead({
 </script>
 
 <template>
-  <div class="container mx-auto px-4 py-8">
+  <div class="max-w-5xl mx-auto px-4 py-8">
     <Menu centered />
-    <h1 class="text-4xl font-bold mb-12 text-center bg-gradient-to-r from-primary/80 to-primary bg-clip-text text-transparent">Projects</h1>
     
-    <div class="grid gap-8 md:grid-cols-2">
+    <!-- Header -->
+    <header class="text-center my-12 space-y-4 animate-fade-in">
+      <span class="font-mono text-xs tracking-widest text-primary uppercase">// Portfolio</span>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Projects</h1>
+      <p class="font-mono text-sm text-muted-foreground max-w-md mx-auto">
+        Shipped code, weekend experiments, and ideas that escaped my head
+      </p>
+    </header>
+    
+    <!-- Projects Grid -->
+    <div class="grid gap-6 md:grid-cols-2 stagger-children">
       <article
-        v-for="project in data || []"
+        v-for="(project, index) in data || []"
         :key="project.path"
-        class="group relative bg-gradient-to-br from-card to-card/80 rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] border border-border/50"
+        class="group relative animate-fade-in"
+        :style="{ animationDelay: `${0.1 + index * 0.08}s` }"
       >
-        <!-- Base gradient always visible -->
-        <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent opacity-40"></div>
-        <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-transparent opacity-30"></div>
-        
-        <!-- Additional hover gradients -->
-        <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent opacity-0 group-hover:opacity-30 transition-all duration-500"></div>
-        <div class="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-20 transition-all duration-500 delay-100"></div>
-        
         <NuxtLink
           :to="project.external ? project.externalUrl : project.path"
           :target="project.external ? '_blank' : '_self'"
-          class="block h-full relative z-10"
+          class="block h-full"
         >
-          <div class="p-8">
-            <div class="flex items-center justify-between mb-6">
-              <h2 class="text-2xl font-semibold group-hover:text-primary transition-colors">{{ project.title }}</h2>
-              <div class="flex items-center text-sm text-muted-foreground/80">
-                <span>{{ new Date(project.date).getFullYear() }}</span>
-                <span v-if="project.endDate" class="mx-2">-</span>
-                <span v-if="project.endDate">{{ new Date(project.endDate).getFullYear() }}</span>
-                <span v-else-if="project.active" class="ml-2 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-medium">Active</span>
+          <div class="relative h-full p-6 rounded-xl bg-card border border-border overflow-hidden transition-all duration-300 hover:border-primary/30 glow-hover">
+            <!-- Decorative corner -->
+            <div class="absolute top-0 right-0 w-20 h-20 overflow-hidden">
+              <div class="absolute top-0 right-0 w-40 h-40 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+            
+            <!-- Content -->
+            <div class="relative space-y-4">
+              <!-- Header -->
+              <div class="flex items-start justify-between gap-4">
+                <div class="space-y-1">
+                  <h2 class="text-xl font-semibold group-hover:text-primary transition-colors duration-200 flex items-center gap-2">
+                    {{ project.title }}
+                    <DotFilled 
+                      v-if="project.active" 
+                      class="w-4 h-4 text-green-500 animate-pulse" 
+                      title="Active project"
+                    />
+                  </h2>
+                  <div class="font-mono text-xs text-muted-foreground">
+                    <span>{{ new Date(project.date).getFullYear() }}</span>
+                    <template v-if="project.endDate">
+                      <span class="mx-1">→</span>
+                      <span>{{ new Date(project.endDate).getFullYear() }}</span>
+                    </template>
+                    <template v-else-if="project.active">
+                      <span class="mx-1">→</span>
+                      <span class="text-primary">Present</span>
+                    </template>
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            <p class="text-muted-foreground/70 mb-6 text-sm leading-relaxed">{{ project.description }}</p>
-            
-            <div class="flex flex-wrap gap-4 mb-6">
-              <a v-if="project.externalUrl" 
-                 :href="project.externalUrl" 
-                 target="_blank"
-                 class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                Visit Project <ExternalLink class="w-4 h-4" />
-              </a>
-              <a v-if="project.githubUrl" 
-                 :href="project.githubUrl" 
-                 target="_blank"
-                 class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
-              >
-                View Code <GithubIcon class="w-4 h-4" />
-              </a>
-            </div>
-            
-            <div class="flex flex-wrap gap-2">
-              <span
-                v-for="tag in project.tags"
-                :key="tag"
-                class="px-2 py-1 bg-primary/5 text-primary/90 rounded-md text-xs font-medium border border-primary/10 hover:bg-primary/10 hover:border-primary/20 transition-colors"
-              >
-                {{ tag }}
-              </span>
+              
+              <!-- Description -->
+              <p class="font-mono text-sm text-muted-foreground leading-relaxed">
+                {{ project.description }}
+              </p>
+              
+              <!-- Links -->
+              <div class="flex flex-wrap gap-3 pt-2">
+                <a 
+                  v-if="project.externalUrl" 
+                  :href="project.externalUrl" 
+                  target="_blank"
+                  @click.stop
+                  class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground hover:text-primary transition-colors px-3 py-1.5 rounded-md bg-muted/50 hover:bg-muted"
+                >
+                  <span>Visit</span>
+                  <ExternalLink class="w-3.5 h-3.5" />
+                </a>
+                <a 
+                  v-if="project.githubUrl" 
+                  :href="project.githubUrl" 
+                  target="_blank"
+                  @click.stop
+                  class="inline-flex items-center gap-1.5 font-mono text-xs text-muted-foreground hover:text-primary transition-colors px-3 py-1.5 rounded-md bg-muted/50 hover:bg-muted"
+                >
+                  <span>Code</span>
+                  <GithubIcon class="w-3.5 h-3.5" />
+                </a>
+              </div>
+              
+              <!-- Tags -->
+              <div class="flex flex-wrap gap-2 pt-2">
+                <span
+                  v-for="tag in project.tags"
+                  :key="tag"
+                  class="font-mono text-[10px] tracking-wider uppercase px-2 py-1 rounded-md bg-primary/5 text-primary/80 border border-primary/10"
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </div>
           </div>
         </NuxtLink>
       </article>
     </div>
+
+    <!-- Empty state -->
+    <div v-if="!data?.length" class="text-center py-20">
+      <p class="font-mono text-muted-foreground">No projects found.</p>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.group {
-  box-shadow: 0 4px 12px -6px theme('colors.primary.DEFAULT / 5%');
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
-.group:hover {
-  box-shadow: 0 0 30px -10px theme('colors.primary.DEFAULT / 15%');
+.animate-pulse {
+  animation: pulse 2s ease-in-out infinite;
 }
-</style> 
+</style>

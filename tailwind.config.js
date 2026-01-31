@@ -1,5 +1,6 @@
 const animate = require("tailwindcss-animate")
 const typography = require('@tailwindcss/typography')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
@@ -49,6 +50,10 @@ module.exports = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        sans: ['Outfit', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['Space Mono', 'IBM Plex Mono', 'monospace'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -71,12 +76,32 @@ module.exports = {
           from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: 0 },
         },
+        "fade-in": {
+          from: { opacity: 0, transform: 'translateY(10px)' },
+          to: { opacity: 1, transform: 'translateY(0)' },
+        },
+        "fade-in-up": {
+          from: { opacity: 0, transform: 'translateY(20px)' },
+          to: { opacity: 1, transform: 'translateY(0)' },
+        },
+        "slide-in-left": {
+          from: { opacity: 0, transform: 'translateX(-20px)' },
+          to: { opacity: 1, transform: 'translateX(0)' },
+        },
+        "glow-pulse": {
+          '0%, 100%': { boxShadow: '0 0 20px -5px hsl(var(--primary) / 0.3)' },
+          '50%': { boxShadow: '0 0 30px -5px hsl(var(--primary) / 0.5)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "fade-in-up": "fade-in-up 0.6s ease-out forwards",
+        "slide-in-left": "slide-in-left 0.4s ease-out forwards",
+        "glow-pulse": "glow-pulse 2s ease-in-out infinite",
       },
     },
   },

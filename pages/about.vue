@@ -1,153 +1,159 @@
 <template>
-    <div class="space-y-8">
+    <div class="max-w-4xl mx-auto px-4 py-8 space-y-12">
         <Menu centered />
-        <header class="text-center space-y-4">
-            <h1 class="text-4xl font-bold">{{ resume?.basics?.name }}</h1>
-            <p class="text-md leading-relaxed text-muted-foreground max-w-3xl mx-auto">{{ resume?.basics?.summary }}</p>
-            <div class="flex items-center justify-center gap-4 text-sm text-muted-foreground">
+        
+        <!-- Header -->
+        <header class="text-center space-y-4 animate-fade-in">
+            <span class="font-mono text-xs tracking-widest text-primary uppercase">// Resume</span>
+            <h1 class="text-4xl md:text-5xl font-bold tracking-tight">{{ resume?.basics?.name }}</h1>
+            <p class="font-mono text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                {{ resume?.basics?.summary }}
+            </p>
+            
+            <!-- Contact info -->
+            <div class="flex flex-wrap items-center justify-center gap-4 font-mono text-xs text-muted-foreground pt-2">
                 <a v-if="resume?.basics?.email" :href="`mailto:${resume?.basics?.email}`"
-                    class="hover:text-foreground transition-colors">
+                    class="hover:text-primary transition-colors">
                     {{ resume?.basics?.email }}
                 </a>
-                <a v-if="resume?.basics?.location?.city" href="#" class="hover:text-foreground transition-colors">
+                <span class="text-border">|</span>
+                <span v-if="resume?.basics?.location?.city">
                     {{ resume?.basics?.location?.city }}, {{ resume?.basics?.location?.country }}
-                </a>
+                </span>
             </div>
-            <div v-if="resume?.basics?.profiles?.length" class="flex flex-col md:flex-row items-center justify-center gap-4">
+            
+            <!-- Social links -->
+            <div v-if="resume?.basics?.profiles?.length" class="flex flex-wrap items-center justify-center gap-3 pt-4">
                 <a v-for="profile in resume?.basics?.profiles" :key="profile.network" :href="profile.url"
                     target="_blank"
-                    class="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2">
-                    <GithubIcon v-if="profile.network.toLowerCase() === 'github'" class="w-5 h-5" />
-                    <InstagramIcon v-if="profile.network.toLowerCase() === 'instagram'" class="w-5 h-5" />
-                    <FacebookIcon v-if="profile.network.toLowerCase() === 'facebook'" class="w-5 h-5" />
-                    <LinkedinIcon v-if="profile.network.toLowerCase() === 'linkedin'" class="w-5 h-5" />
-                    <XIcon v-if="profile.network.toLowerCase() === 'x'" class="w-5 h-5" />
+                    class="p-2 rounded-lg bg-card border border-border hover:border-primary/30 hover:bg-primary/5 transition-all duration-300 glow-hover">
+                    <GithubIcon v-if="profile.network.toLowerCase() === 'github'" class="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <InstagramIcon v-if="profile.network.toLowerCase() === 'instagram'" class="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <FacebookIcon v-if="profile.network.toLowerCase() === 'facebook'" class="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <LinkedinIcon v-if="profile.network.toLowerCase() === 'linkedin'" class="w-5 h-5 text-muted-foreground hover:text-primary" />
+                    <XIcon v-if="profile.network.toLowerCase() === 'x'" class="w-5 h-5 text-muted-foreground hover:text-primary" />
                     <MaterialSymbolsGlobe
                         v-if="!['github', 'instagram', 'facebook', 'linkedin', 'x'].includes(profile.network.toLowerCase())"
-                        class="w-5 h-5" />
-                    {{ profile.username }}
+                        class="w-5 h-5 text-muted-foreground hover:text-primary" />
                 </a>
             </div>
         </header>
-        <section class="section font-mono" id="download-cv">
-            <div class="flex justify-center">
-                <a
-                    href="/Andrei_Terecoasa_Resume.pdf"
-                    download
-                    target="_blank"
-                    class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-primary dark:bg-secondary text-white font-semibold hover:bg-primary/80 transition-colors"
-                >
-                    <div class="flex items-center"><PdfIcon class="w-5 h-5 mr-2" /> version</div>
-                    
+
+        <!-- Download CV -->
+        <section class="flex justify-center animate-fade-in" style="animation-delay: 0.1s">
+            <a
+                href="/Andrei_Terecoasa_Resume.pdf"
+                download
+                target="_blank"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-mono text-sm font-medium hover:bg-primary/90 transition-all duration-300 glow-hover"
+            >
+                <PdfIcon class="w-5 h-5" />
+                Download Resume
+            </a>
+        </section>
+
+        <!-- Work Experience -->
+        <section class="animate-fade-in" style="animation-delay: 0.15s">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-xs tracking-widest text-primary uppercase">// Work</span>
+                <div class="flex-grow h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                    <ArrowUp class="w-4 h-4" />
                 </a>
             </div>
-        </section>
-        <section class="section font-mono " id="work">
-            <h2 class="flex justify-between items-center text-2xl font-bold mb-6">
-                Work Experience
-                <a href="#">
-                    <ArrowUp class="text-foreground" />
-                </a>
-            </h2>
-            <div class="space-y-12">
-                <div v-for="(company, companyName) in groupedWork" :key="companyName" class="group relative" itemscope
-                    itemtype="https://schema.org/Organization">
+            
+            <div class="space-y-10">
+                <div v-for="(company, companyName) in groupedWork" :key="companyName" class="group">
                     <!-- Company header -->
-                    <div class="mb-6">
+                    <div class="mb-4">
                         <h3 class="font-semibold text-xl group-hover:text-primary transition-colors">
-                            <a target="_blank" :href="company.url" itemprop="url" class="flex items-center gap-2">
-                                <span itemprop="name">{{ company.name }}</span>
+                            <a target="_blank" :href="company.url" class="inline-flex items-center gap-2">
+                                <span>{{ company.name }}</span>
                                 <ExternalLink class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </a>
                         </h3>
                     </div>
 
-                    <!-- Timeline container -->
-                    <div class="relative">
-                        <!-- Continuous timeline line -->
-                        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-700/50"></div>
-
-                        <!-- Positions -->
-                        <div class="space-y-8">
-                            <div v-for="(position, index) in company.positions" :key="index" class="relative" itemscope
-                                itemtype="https://schema.org/WorkPosition">
-                                <!-- Timeline dot -->
-                                <div class="absolute left-0 top-0 w-3 h-3 rounded-full bg-primary -translate-x-[5px]">
+                    <!-- Timeline -->
+                    <div class="relative ml-2">
+                        <!-- Vertical line -->
+                        <div class="absolute left-[5px] top-2 bottom-2 w-0.5 bg-border"></div>
+                        
+                        <div v-for="(position, index) in company.positions" :key="index" class="relative pb-6 last:pb-0 pl-8">
+                            <!-- Dot -->
+                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-primary"></div>
+                            
+                            <!-- Content -->
+                            <div class="space-y-2">
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <span class="font-medium text-foreground">{{ position.position }}</span>
+                                    <span class="font-mono text-xs text-muted-foreground px-2 py-1 rounded-md bg-muted">
+                                        {{ getDurationLine(position) }}
+                                    </span>
                                 </div>
-
-                                <!-- Position content -->
-                                <div class="ml-6 space-y-2">
-                                    <div class="flex justify-between items-start">
-                                        <div class="space-y-1">
-                                            <span class="text-lg font-medium text-foreground" itemprop="jobTitle">{{
-                                                position.position
-                                            }}</span>
-                                        </div>
-                                        <span
-                                            class="text-sm tabular-nums text-muted-foreground bg-slate-800/50 px-2 py-1 rounded-md">
-                                            <meta itemprop="startDate" :content="position.startDate" />
-                                            <meta itemprop="endDate" :content="position.endDate" />
-                                            {{ getDurationLine(position) }}
-                                        </span>
-                                    </div>
-                                    <p class="text-sm text-muted-foreground leading-relaxed" itemprop="description">{{
-                                        position.summary }}
-                                    </p>
-                                </div>
+                                <p class="font-mono text-sm text-muted-foreground leading-relaxed">
+                                    {{ position.summary }}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="section font-mono " id="education">
-            <h2 class="flex items-center justify-between text-2xl font-bold mb-6">
-                Education
-                <a href="#">
-                    <ArrowUp class="text-foreground" />
+
+        <!-- Education -->
+        <section class="animate-fade-in" style="animation-delay: 0.2s">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-xs tracking-widest text-primary uppercase">// Education</span>
+                <div class="flex-grow h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                    <ArrowUp class="w-4 h-4" />
                 </a>
-            </h2>
-            <div v-for="ed in resume?.education" class="flex space-y-2 flex-col mb-8 last:mb-0" itemscope
-                itemtype="https://schema.org/EducationalOccupationalCredential">
-                <div class="flex justify-between">
-                    <h3 class="font-semibold text-lg text-balance flex-1 text-pretty" itemprop="educationalLevel">
-                        {{ ed.institution }}
-                    </h3>
-                    <span class="text-sm tabular-nums text-muted-foreground break-normal">
-                        <meta itemprop="startDate" :content="ed.startDate" />
-                        <meta itemprop="endDate" :content="ed.endDate" />
-                        {{ getDurationLine(ed) }}
-                    </span>
+            </div>
+            
+            <div class="space-y-6">
+                <div v-for="ed in resume?.education" :key="ed.institution" class="p-5 rounded-xl bg-card border border-border">
+                    <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+                        <h3 class="font-semibold text-lg">{{ ed.institution }}</h3>
+                        <span class="font-mono text-xs text-muted-foreground px-2 py-1 rounded-md bg-muted">
+                            {{ getDurationLine(ed) }}
+                        </span>
+                    </div>
+                    <p class="font-mono text-sm text-muted-foreground">
+                        {{ ed.studyType }} — {{ ed.area }}
+                    </p>
                 </div>
-                <span class="text-base text-muted-foreground leading-none">
-                    <span itemprop="credentialCategory">{{ ed.studyType }}</span> - <span itemprop="about">{{ ed.area
-                    }}</span>
-                </span>
             </div>
         </section>
-        <section class="section font-mono " id="skills">
-            <h2 class="flex items-center justify-between text-2xl font-bold mb-6">
-                Skills
-                <a href="#">
-                    <ArrowUp class="text-foreground" />
+
+        <!-- Skills -->
+        <section class="animate-fade-in" style="animation-delay: 0.25s">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-xs tracking-widest text-primary uppercase">// Skills</span>
+                <div class="flex-grow h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                    <ArrowUp class="w-4 h-4" />
                 </a>
-            </h2>
-            <div class="grid grid-cols-1 gap-12">
-                <div v-for="(skills, category) in groupedSkills" :key="category" class="space-y-4">
-                    <h3 class="text-base font-semibold text-primary capitalize">{{ category }}</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <div v-for="skill in skills" :key="skill.name" class="group relative px-4 py-2 rounded-md bg-slate-800/50 hover:bg-slate-700 
-                     border border-slate-700/50 hover:border-slate-600 
-                     transition-all duration-200" itemprop="knowsAbout">
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm font-medium text-gray-300">{{ skill.name }}</span>
-                            </div>
-                            <span v-if="skill.keywords?.length" class="absolute left-1/2 -translate-x-1/2 -bottom-1 opacity-0 
-                       group-hover:opacity-100 group-hover:-bottom-8 
-                       bg-slate-800 text-sm px-3 py-1.5 rounded-md
-                       border border-slate-700/50
-                       transition-all duration-200 z-10
-                       text-gray-400 whitespace-nowrap">
+            </div>
+            
+            <div class="space-y-8">
+                <div v-for="(skills, category) in groupedSkills" :key="category" class="space-y-3">
+                    <h3 class="font-mono text-sm font-medium text-primary capitalize">{{ category }}</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <div 
+                            v-for="skill in skills" 
+                            :key="skill.name" 
+                            class="group/skill relative font-mono text-sm px-3 py-1.5 rounded-md bg-card border border-border hover:border-primary/30 hover:bg-primary/5 transition-all duration-200"
+                        >
+                            {{ skill.name }}
+                            <!-- Tooltip for keywords -->
+                            <span 
+                                v-if="skill.keywords?.length" 
+                                class="absolute left-1/2 -translate-x-1/2 -top-2 -translate-y-full opacity-0 group-hover/skill:opacity-100 
+                                       bg-card border border-border px-3 py-2 rounded-lg shadow-lg
+                                       font-mono text-xs text-muted-foreground whitespace-nowrap z-10
+                                       transition-all duration-200 pointer-events-none"
+                            >
                                 {{ skill.keywords.join(' · ') }}
                             </span>
                         </div>
@@ -155,60 +161,31 @@
                 </div>
             </div>
         </section>
-        <!-- <section class="section font-mono" id="projects">
-      <h2 class="flex items-center justify-between text-2xl font-bold mb-6">
-        Projects
-        <a href="#">
-          <ArrowUp class="text-foreground" />
-        </a>
-      </h2>
-      <div class="-mx-3 grid grid-cols-1 gap-4 print:grid-cols-2 print:gap-3 md:grid-cols-2">
-        <div v-for="project in resume.projects"
-          class="group rounded-lg bg-card flex flex-col overflow- border border-muted p-4 space-y-2">
-          <h3 class="font-semibold flex items-center tracking-tight text-lg mb-2">
-            <DotDuotone title="Still active" v-if="project.active" class="inline text-green-300 w-6 h-6 mr-2" />
-            <span>{{ project.name }}</span>
-            <a v-if="project.external" :href="project.url" target="_blank"
-              class="text-gray-300 group-hover:text-gray-500 transition pointer-events-auto ml-2">
-              <ExternalLink />
-            </a>
-          </h3>
-          <p class="text-muted-foreground text-sm">{{ project.summary }}</p>
-          <p class="text-sm">
-            <span v-if="project.active">Start date: {{ project.startDate.split("-")[0] }}</span>
-          </p>
-        </div>
-      </div>
-    </section> -->
-        <section class="section font-mono " id="references">
-            <h2 class="flex items-center justify-between text-2xl font-bold mb-6">
-                References
-                <a href="#">
-                    <ArrowUp class="text-foreground" />
+
+        <!-- References -->
+        <section v-if="resume?.references?.length" class="animate-fade-in" style="animation-delay: 0.3s">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="font-mono text-xs tracking-widest text-primary uppercase">// References</span>
+                <div class="flex-grow h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+                <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                    <ArrowUp class="w-4 h-4" />
                 </a>
-            </h2>
-            <div class="space-y-4">
+            </div>
+            
+            <div class="grid gap-6 md:grid-cols-2">
                 <div v-for="ref in resume?.references" :key="ref.name"
-                    class="group relative overflow- rounded-xl shadow hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
-                    <div class="absolute top-0 left-0 w-1 h-full transition-all duration-300  bg-primary"></div>
-                    <div class="p-6 border border-gray-100 dark:border-gray-800 rounded-xl bg-white dark:bg-gray-900">
-                        <div class="flex items-start justify-between mb-4">
-                            <h3 class="text-lg font-semibold group-hover:text-primary transition-colors duration-200">
-                                {{ ref.name }}
-                            </h3>
-                            <a :href="ref.url" target="_blank"
-                                class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                                <ExternalLink class="w-4 h-4" />
-                            </a>
-                        </div>
-                        <blockquote class="relative">
-                            <div class="absolute -top-2 -left-2 text-4xl text-primary opacity-20">"</div>
-                            <p class="text-muted-foreground text-sm leading-relaxed italic">
-                                {{ ref.reference }}
-                            </p>
-                            <div class="absolute -bottom-2 -right-2 text-4xl text-primary opacity-20">"</div>
-                        </blockquote>
+                    class="group p-6 rounded-xl bg-card border border-border hover:border-primary/30 transition-all duration-300">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="font-semibold group-hover:text-primary transition-colors">
+                            {{ ref.name }}
+                        </h3>
+                        <a :href="ref.url" target="_blank" class="text-muted-foreground hover:text-primary transition-colors">
+                            <ExternalLink class="w-4 h-4" />
+                        </a>
                     </div>
+                    <blockquote class="relative font-mono text-sm text-muted-foreground leading-relaxed italic pl-4 border-l-2 border-primary/30">
+                        "{{ ref.reference }}"
+                    </blockquote>
                 </div>
             </div>
         </section>
@@ -224,12 +201,13 @@ import LinkedinIcon from "~icons/ph/linkedin-logo-bold";
 import PdfIcon from "~icons/tabler/pdf";
 import XIcon from "~icons/ph/x-bold";
 import MaterialSymbolsGlobe from "~icons/material-symbols/globe";
+import ExternalLink from "~icons/mingcute/external-link-line";
+import ArrowUp from "~icons/material-symbols/arrow-warm-up";
 
 const { data: { value: { meta: resume } } } = await useAsyncData("resume", () =>
     queryCollection("other").where("stem", "=", "other/resume").first()
 );
 
-// Use the consolidated SEO composable
 useArticleMeta('resume', resume);
 
 interface WorkItem {
@@ -244,7 +222,7 @@ const getDurationLine = (workItem: WorkItem) => {
     if (!endYear || startYear == endYear) {
         return startYear;
     }
-    return `${startYear}-${endYear}`;
+    return `${startYear} - ${endYear}`;
 };
 
 defineOgImageComponent("tere", {
@@ -254,8 +232,6 @@ defineOgImageComponent("tere", {
     theme: "#E67B2E",
     colorMode: "dark",
 });
-
-useArticleMeta('resume', resume);
 
 // Prepare grouped skills
 const groupedSkills = computed(() => {

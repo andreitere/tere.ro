@@ -41,8 +41,8 @@ export default defineNuxtConfig({
   content: {
     highlight: {
       theme: {
-        // Default theme (same as single string)
-        default: "github-dark",
+        default: "github-light",
+        dark: "github-dark",
       },
     },
   },
@@ -59,8 +59,9 @@ export default defineNuxtConfig({
   },
   googleFonts: {
     families: {
-      Sora: [400, 500, 600, 700],
-      "JetBrains Mono": [400, 500, 600, 700],
+      "Space Mono": [400, 700],
+      "Outfit": [300, 400, 500, 600, 700, 800],
+      "IBM Plex Mono": [400, 500, 600],
     },
   },
   umami: {
