@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: /_nuxt/ 
+Disallow: /_nuxt/
+
+Sitemap: https://tere.ro/sitemap.xml 

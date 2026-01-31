@@ -91,7 +91,7 @@ useHead({
   meta: [
     { name: 'author', content: 'Andrei Terecoasa' },
     { property: 'article:published_time', content: articleData.value?.date },
-    { property: 'article:modified_time', content: articleData.value?.date },
+    { property: 'article:modified_time', content: articleData.value?.lastmod || articleData.value?.date },
     { property: 'article:section', content: articleData.value?.category },
     { property: 'article:tag', content: articleData.value?.category },
     { name: 'twitter:card', content: 'summary_large_image' },
