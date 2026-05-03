@@ -1,5 +1,8 @@
 RewriteEngine on
 
+# Serve .md files with correct MIME type
+AddType text/markdown .md
+
 # Allow .well-known directory access
 RewriteRule ^\.well-known/ - [L]
 
