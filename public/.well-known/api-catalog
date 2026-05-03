@@ -1,0 +1,29 @@
+{
+  "name": "tere.ro",
+  "description": "Andrei Terecoasa — Software Engineer. Personal website with blog articles, projects, and technical writing.",
+  "url": "https://tere.ro",
+  "resources": [
+    {
+      "path": "/blog",
+      "type": "text/html",
+      "description": "Blog articles covering software engineering, Vue.js, homelab, and more"
+    },
+    {
+      "path": "/projects",
+      "type": "text/html",
+      "description": "Open source projects and side projects"
+    },
+    {
+      "path": "/about",
+      "type": "text/html",
+      "description": "About Andrei Terecoasa"
+    }
+  ],
+  "sitemap": "/sitemap.xml",
+  "contentNegotiation": {
+    "markdown": {
+      "acceptHeader": "text/markdown",
+      "description": "Request markdown representation of pages via Accept: text/markdown"
+    }
+  }
+}

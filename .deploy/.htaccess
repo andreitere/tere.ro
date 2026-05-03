@@ -1,4 +1,13 @@
 RewriteEngine on
+
+# Allow .well-known directory access
+RewriteRule ^\.well-known/ - [L]
+
+# Markdown for Agents: serve markdown when requested (RFC 8288)
+RewriteCond %{HTTP:Accept} text/markdown
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule .* /index.md [L,T=text/markdown]
+
 # Redirect www to non-www
 RewriteCond %{HTTP_HOST} ^www\.tere\.ro$ [NC]
 RewriteRule ^(.*)$ https://tere.ro/$1 [R=301,L]
@@ -57,15 +66,26 @@ RewriteRule ^([^/]+)/([^/]+)$ /$1/$2/ [L,R=301]
   AddOutputFilterByType DEFLATE text/css
   AddOutputFilterByType DEFLATE text/html
   AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE text/markdown
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/xml
-  
+
   # Remove browser bugs (only needed for really old browsers)
   BrowserMatch ^Mozilla/4 gzip-only-text/html
   BrowserMatch ^Mozilla/4\.0[678] no-gzip
   BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
   Header append Vary User-Agent
 </IfModule>
+
+# Agent discovery: Link headers (RFC 8288)
+<IfModule mod_headers.c>
+  Header set Link "</.well-known/api-catalog>; rel=\"api-catalog\", </sitemap.xml>; rel=\"describedby\""
+</IfModule>
+
+# Serve .well-known/api-catalog as JSON
+<Files "api-catalog">
+  ForceType application/json
+</Files>
 
 # Custom 404 error page
 ErrorDocument 404 /not-found.html

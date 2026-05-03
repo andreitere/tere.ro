@@ -1,4 +1,5 @@
 User-agent: *
 Disallow: /_nuxt/
+Content-Signal: ai-train=no, search=yes, ai-input=no
 
-Sitemap: https://tere.ro/sitemap.xml 
+Sitemap: https://tere.ro/sitemap.xml
