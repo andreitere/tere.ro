@@ -27,6 +27,10 @@ jobs:
         run: |
           npm run generate
 
+      - name: 📝 Copy markdown sidecar files
+        run: |
+          bash scripts/copy-markdown.sh .output/public
+
       - name: 📦 Add assets
         run: |
           cp ./.deploy/.htaccess ./.output/public

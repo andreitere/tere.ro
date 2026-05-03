@@ -3,9 +3,21 @@ RewriteEngine on
 # Allow .well-known directory access
 RewriteRule ^\.well-known/ - [L]
 
-# Markdown for Agents: serve markdown when requested (RFC 8288)
+# Markdown for Agents: serve .md files when Accept: text/markdown (RFC 8288)
+# /path/ → /path/index.md
+RewriteCond %{HTTP:Accept} text/markdown
+RewriteCond %{REQUEST_URI} !\.\w+$
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}index.md -f
+RewriteRule ^(.+)/$ $1/index.md [L,T=text/markdown]
+# /path → /path/index.md
+RewriteCond %{HTTP:Accept} text/markdown
+RewriteCond %{REQUEST_URI} !\.\w+$
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.+)$ $1/index.md [L,T=text/markdown]
+# / (homepage)
 RewriteCond %{HTTP:Accept} text/markdown
 RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{DOCUMENT_ROOT}/index.md -f
 RewriteRule .* /index.md [L,T=text/markdown]
 
 # Redirect www to non-www
@@ -69,17 +81,13 @@ RewriteRule ^([^/]+)/([^/]+)$ /$1/$2/ [L,R=301]
   AddOutputFilterByType DEFLATE text/markdown
   AddOutputFilterByType DEFLATE text/plain
   AddOutputFilterByType DEFLATE text/xml
-
-  # Remove browser bugs (only needed for really old browsers)
-  BrowserMatch ^Mozilla/4 gzip-only-text/html
-  BrowserMatch ^Mozilla/4\.0[678] no-gzip
-  BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
-  Header append Vary User-Agent
 </IfModule>
 
 # Agent discovery: Link headers (RFC 8288)
 <IfModule mod_headers.c>
   Header set Link "</.well-known/api-catalog>; rel=\"api-catalog\", </sitemap.xml>; rel=\"describedby\""
+  # Inform caches that response varies based on Accept header
+  Header merge Vary Accept
 </IfModule>
 
 # Serve .well-known/api-catalog as JSON
