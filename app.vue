@@ -7,6 +7,13 @@ const colorMode = useColorMode()
 const toggleColorMode = () => {
   colorMode.value = colorMode.value === 'light' ? 'dark' : 'light'
 }
+
+const route = useRoute()
+useHead(computed(() => ({
+  link: [
+    { rel: 'alternate', type: 'text/markdown', href: route.path || '/' }
+  ]
+})))
 </script>
 
 <template>
