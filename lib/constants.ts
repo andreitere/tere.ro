@@ -7,6 +7,7 @@ export const categories_colors = {
   tech: "#8fb3d1",
   software: "#8fb3d1",
   homelab: "#f1b87c",
+  devops: "#9ad1c3",
   development: "#8fb3d1",
   blog: "#8fb3d1",
 };
@@ -20,6 +21,7 @@ export const categories_colors_muted = {
   tech: "#8fb3d1",
   software: "#8fb3d1",
   homelab: "#f1b87c",
+  devops: "#9ad1c3",
   development: "#8fb3d1",
   blog: "#8fb3d1",
 };
